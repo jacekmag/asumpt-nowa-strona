@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zestawy · Asumpt</title>
+<style>
+  /* ZASLEPKA KATEGORII. Wyglad docelowy tej strony to osobny etap -
+     tu chodzi tylko o to, zeby klikniecie plytki mialo dokad prowadzic.
+     Kolor bierze sie z krawedzi wlasnej plytki w przedsionku. */
+  :root {
+    --tint:#ffd23d; --glow:rgba(255,210,61,.34);
+    --tlo:#04060a; --ink:#e8e6e1; --ink-2:#a2a8ae; --ink-3:#6d747b;
+    --mono:"Cascadia Mono",Consolas,"SF Mono",monospace;
+    --disp:"Sitka Heading",Constantia,Georgia,serif;
+  }
+  * { box-sizing:border-box }
+  html,body { height:100% }
+  body { margin:0; background:var(--tlo); color:var(--ink); font-family:var(--mono);
+    display:flex; align-items:center; justify-content:center; text-align:center; padding:24px }
+  main { max-width:46ch; animation:wejscie 1.1s ease both }
+  @keyframes wejscie { from{opacity:0} to{opacity:1} }
+  .nad { font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-3); margin:0 0 22px }
+  h1 { font-family:var(--disp); font-weight:600; font-size:clamp(30px,7vw,58px); line-height:1.05;
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 18px; color:var(--tint);
+    text-shadow:0 0 18px rgba(0,0,0,.9), 0 0 34px var(--glow) }
+  .kreska { width:64px; height:1px; margin:0 auto 22px; background:var(--tint); opacity:.55;
+    box-shadow:0 0 14px -2px var(--tint) }
+  p.tresc { color:var(--ink-2); font-size:13px; letter-spacing:.05em; line-height:1.95; margin:0 0 34px }
+  a.powrot { display:inline-block; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-2); text-decoration:none; border:1px solid rgba(190,210,230,.22); padding:11px 18px;
+    transition:color .2s, border-color .2s }
+  a.powrot:hover, a.powrot:focus-visible { color:var(--ink); border-color:var(--tint) }
+  a.powrot:focus-visible { outline:1px solid var(--tint); outline-offset:3px }
+  .kurtyna { position:fixed; inset:0; z-index:9; background:var(--tlo); opacity:0; pointer-events:none;
+    transition:opacity .5s ease }
+  .kurtyna.gra { opacity:1; pointer-events:auto }
+  @media (prefers-reduced-motion:reduce){
+    * { animation:none !important; transition:none !important }
+    main { opacity:1 }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <p class="nad">Asumpt · kategoria</p>
+    <h1>Zestawy</h1>
+    <div class="kreska"></div>
+    <p class="tresc">Ta podstrona jeszcze nie powstała. Płytka w przedsionku już tu prowadzi — treść i wygląd kategorii to osobny etap.</p>
+    <a class="powrot" href="index.html">← Wróć do przedsionka</a>
+  </main>
+  <div class="kurtyna" id="kurtyna"></div>
+<script>
+(function(){
+  "use strict";
+  var kurtyna = document.getElementById("kurtyna");
+  var bezRuchu = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Powrot z pamieci przegladarki (bfcache). Przycisk "wstecz" potrafi
+     przywrocic te strone dokladnie w stanie, w jakim ja opuscilismy -
+     czyli z zapalona kurtyna, bo to ona gasi kadr przed wyjsciem.
+     Bez zdjecia klasy widac wtedy sam czarny ekran, a kurtyna lapie
+     do tego klikniecia (pointer-events:auto). */
+  window.addEventListener("pageshow", function(e){
+    if (e.persisted) { kurtyna.classList.remove("gra"); }
+  });
+
+  /* Czy przyszlismy prosto z przedsionka. Jesli tak, powrot ma sie COFNAC,
+     a nie dokladac kolejny wpis do historii - inaczej przedsionek siedzi
+     w niej dwa razy i wyjscie ze sklepu wymaga dodatkowych nacisniec
+     "wstecz". Gdy referrera nie ma (wejscie z zakladki, odswiezenie,
+     adres wpisany recznie), zostaje zwykle przejscie pod adres. */
+  function zPrzedsionka() {
+    if (!document.referrer) { return false; }
+    try {
+      var skad = new URL(document.referrer);
+      var cel = new URL("index.html", window.location.href);
+      if (skad.origin !== cel.origin) { return false; }
+      /* Serwer potrafi podawac ten sam adres raz z "index.html", raz bez -
+         Netlify domyslnie skraca /katalog/index.html do /katalog/. Dlatego
+         porownujemy postac skrocona, inaczej na serwerze warunek nie trafi. */
+      return skad.pathname.replace(/index\.html$/, "") ===
+             cel.pathname.replace(/index\.html$/, "");
+    } catch (blad) { return false; }
+  }
+
+  document.querySelector("a.powrot").addEventListener("click", function(e){
+    /* Ctrl/Cmd/Shift zostawiamy przegladarce - to otwieranie w nowej karcie. */
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) { return; }
+    e.preventDefault();
+    var adres = this.getAttribute("href");
+    var wstecz = zPrzedsionka();
+    function idz() {
+      if (wstecz) { window.history.back(); } else { window.location.href = adres; }
+    }
+    if (bezRuchu) { idz(); return; }
+    kurtyna.classList.add("gra");
+    setTimeout(idz, 500);
+  });
+})();
+</script>
+</body>
+</html>
