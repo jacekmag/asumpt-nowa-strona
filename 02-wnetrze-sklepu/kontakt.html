@@ -336,7 +336,9 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 }
 
 /* ====== plan placu ====== */
-.mapbox{min-height:0}
+/* min-width:0 — bez tego wąska kolumna nie może się skurczyć i plan
+   placu jest przycinany, zanim wczytają się fonty z Google */
+.mapbox{min-height:0;min-width:0}
 .plan{flex:1;width:100%;height:100%;min-height:0;display:block;background:var(--plate)}
 .plan .road{stroke:#37434C;stroke-width:9;stroke-linecap:round;fill:none}
 .plan .roadline{stroke:#141A20;stroke-width:1;fill:none}
