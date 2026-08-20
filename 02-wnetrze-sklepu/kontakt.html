@@ -1,4 +1,8 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kontakt · Asumpt · Pl. Wilsona 4, Warszawa Żoliborz</title>
 <meta name="description" content="Sklep z e-papierosami Asumpt, Pl. Wilsona 4, Warszawa Żoliborz. Pn–Pt 11:00–19:00, sobota 11:00–14:00. Tel. 22 839 86 33. Tuż przy wyjściu ze stacji metra Plac Wilsona. Pomożemy dobrać sprzęt.">
 <link rel="canonical" href="https://epapierosy-asumpt.pl/kontakt.html">
@@ -130,7 +134,7 @@ body{
 .sign i{width:6px;height:6px;border-radius:50%;background:var(--red);flex:none;font-style:normal}
 
 /* ---------- nagłówek strony ---------- */
-.top{padding:52px 0 0;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.top{padding:52px 26px 0;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
 .logo{width:min(370px,66vw);height:auto;display:block}
 .tel{
   font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--ink);
@@ -139,7 +143,7 @@ body{
 }
 .tel:hover,.tel:focus-visible{color:var(--red);outline:none}
 
-.hero{padding:44px 0 42px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero{padding:44px 26px 42px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .eyebrow{
   font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--muted);margin:0 0 20px;
@@ -292,7 +296,8 @@ h2{
 .faq p{margin:0 0 22px;color:var(--ink-2);max-width:66ch;font-size:16.5px}
 
 /* stopka */
-footer{margin-top:84px;border-top:1px solid var(--line);padding:34px 0 90px}
+footer{border-top:1px solid var(--line)}
+footer.wrap{margin-top:84px;padding:34px 26px 90px}
 .flinks{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 22px;padding:0;list-style:none}
 .flinks a{
   font-family:"Saira Condensed",sans-serif;font-weight:500;text-transform:uppercase;
@@ -383,6 +388,8 @@ section.wrap{padding-top:34px}
   .plan .radar{display:none}
 }
 </style>
+</head>
+<body>
 <div class="wrap top">
   <img class="logo" alt="asumpt e-produkty" src="../logo-asumpt.png">
   <a class="tel" href="tel:+48228398633">22 839 86 33</a>
@@ -626,6 +633,7 @@ section.wrap{padding-top:34px}
 
 <footer class="wrap">
   <ul class="flinks">
+    <li><a href="index.html">Przedsionek</a></li>
     <li><a href="dobor-sprzetu.html">Dobór sprzętu</a></li>
     <li><a href="zestawy.html">Zestawy</a></li>
     <li><a href="liquidy.html">Liquidy</a></li>
@@ -636,3 +644,5 @@ section.wrap{padding-top:34px}
   </ul>
   <p class="fnote">Asumpt s.c. · Pl. Wilsona 4, 01-626 Warszawa · 22 839 86 33 · Oferta dotyczy wyłącznie sklepu stacjonarnego</p>
 </footer>
+</body>
+</html>
