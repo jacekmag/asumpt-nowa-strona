@@ -73,7 +73,7 @@
   .ctrl { border:1px solid var(--line); border-bottom:0; background:#0e1116; padding:11px 14px; display:flex; flex-wrap:wrap; gap:11px 20px; align-items:center }
 
   .stage { position:relative; aspect-ratio:16/9; border:1px solid var(--line); overflow:hidden; isolation:isolate; touch-action:pan-y;
-    --dark:1; --darkr:50; --lines:0; --bgy:100; --edgeint:1; --radar:.5; --tempo:0; --rise:3000;
+    --dark:.62; --darkr:40; --lines:0; --bgy:100; --edgeint:1; --radar:.5; --tempo:0; --rise:3000;
     /* jeden swiat: plytki w tytanie, przednia w czerwieni. Kategorie rozroznia
        ikona i nazwa, nie kolor - czerwien zostaje jedynym akcentem. */
     --titan:#93A0A8; --tint-front:#E5120A;
@@ -127,9 +127,17 @@
   .plate::after { content:""; position:absolute; left:5%; right:5%; top:4%; height:1px; background:linear-gradient(90deg,transparent,rgba(242,244,245,.5),transparent) }
   .stage.lit .plate { animation:igniteFluo var(--igdur) linear var(--igdel) both }
   @keyframes igniteFluo { 0%{opacity:0}4%{opacity:.9}6%{opacity:.04}13%{opacity:.96}16%{opacity:.06}21%{opacity:.5}24%{opacity:.1}31%{opacity:1}36%{opacity:.28}44%{opacity:1}52%{opacity:.7}62%{opacity:1}72%{opacity:.88}100%{opacity:1} }
-  .p-icon { width:25%; max-width:52px; aspect-ratio:1; display:block; color:var(--tint); opacity:.9; transition:color .28s ease }
+  .p-icon { width:25%; max-width:52px; aspect-ratio:1; display:block; color:var(--tint); opacity:.9;
+    transition:color .28s ease, width .28s ease, max-width .28s ease }
   .p-icon svg { width:100%; height:100%; display:block }
-  .p-name { position:relative; z-index:3; font-family:var(--disp); font-weight:600; font-size:clamp(10px,2.1vw,23px); text-transform:uppercase; color:#F2F4F5; line-height:1; text-align:center; text-shadow:0 1px 9px rgba(0,0,0,.9) }
+  .p-name { position:relative; z-index:3; font-family:var(--disp); font-weight:600; font-size:clamp(10px,2.1vw,23px); text-transform:uppercase; color:#F2F4F5; line-height:1; text-align:center; text-shadow:0 1px 9px rgba(0,0,0,.9);
+    transition:font-size .28s ease }
+  /* plytka z przodu: wiekszy symbol i napis - czytelniejsze, a przy okazji
+     zaslaniaja przeswitujacy napis tylnej plytki widoczny przez szklo */
+  .cell.is-front .plate { gap:3%; transition:gap .28s ease }
+  .cell.is-front .p-icon { width:36%; max-width:78px }
+  .cell.is-front .p-name { font-size:clamp(14px,2.9vw,30px) }
+  @media (prefers-reduced-motion:reduce){ .p-icon,.p-name{transition:none} }
   /* WSTAWANIE SWIATLA — z-index 10, czyli NAD tlem, ale POD plytkami (20) i logo (30).
      Dzieki temu czern gasi tylko pejzaz, a plytki i neon zapalaja sie przez nia, wlasnym rytmem.
      Krzywa trzyma czern prawie pelna przez pierwsza trzecia — gory maja wychodzic pozno i wolno. */
@@ -232,8 +240,8 @@
     <figure data-fig="A">
       <figcaption class="cap"><span class="num">✦</span><span class="src">highway-retrowave</span><span class="tag win">scena wybrana</span></figcaption>
       <div class="ctrl">
-        <div class="knob"><label>Przyciemnienie <b data-o="dark">100</b></label><input type="range" min="0" max="100" value="100" data-var="dark"></div>
-        <div class="knob hot"><label>Zasięg przyciemn. <b data-o="darkr">50</b></label><input type="range" min="15" max="95" value="50" data-var="darkr" data-raw="1"></div>
+        <div class="knob"><label>Przyciemnienie <b data-o="dark">62</b></label><input type="range" min="0" max="100" value="62" data-var="dark"></div>
+        <div class="knob hot"><label>Zasięg przyciemn. <b data-o="darkr">40</b></label><input type="range" min="15" max="95" value="40" data-var="darkr" data-raw="1"></div>
         <div class="knob hot"><label>Pozycja tła <b data-o="bgy">100</b></label><input type="range" min="0" max="100" value="100" data-var="bgy" data-raw="1"></div>
         <div class="knob"><label>Linie walca <b data-o="lines">0</b></label><input type="range" min="0" max="100" value="0" data-var="lines"></div>
         <div class="knob hot"><label>Wstawanie światła (ms) <b data-o="rise">3000</b></label><input type="range" min="800" max="6000" step="100" value="3000" data-var="rise" data-raw="1"></div>
@@ -306,7 +314,9 @@
     sc.cells.forEach(function(c){
       var a=((parseFloat(c.style.getPropertyValue("--a"))+sc.angle)%360+360)%360;
       var dn=Math.min(a,360-a)/180;
-      c.querySelector(".plate").style.filter="brightness("+(1-dn*.45).toFixed(2)+") blur("+(dn*2.2).toFixed(2)+"px)";
+      /* mocniejsze przygaszenie i rozmycie w glebi - napis tylnej plytki ma
+         zostac czytelny jako detal, nie konkurowac z przednim */
+      c.querySelector(".plate").style.filter="brightness("+(1-dn*.62).toFixed(2)+") blur("+(dn*3.6).toFixed(2)+"px)";
       c.style.zIndex=String(100-Math.round(dn*100));
       c.classList.toggle("is-front",dn<.12);
       c.classList.toggle("is-back",a>sc.flipAt&&a<360-sc.flipAt);
