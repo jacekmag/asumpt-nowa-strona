@@ -115,11 +115,11 @@
   .sonar.s2 { animation-delay:calc(var(--sdel,0s) + 1.5s) !important }
   @keyframes sonarOut { 0%{transform:scale(1);opacity:calc(var(--radar)*.85)} 70%{opacity:0} 100%{transform:scale(1.42);opacity:0} }
   .plate { position:relative; z-index:1; width:100%; aspect-ratio:1.9; border-radius:3.2%/6.1%;
-    background:linear-gradient(148deg,rgba(242,244,245,.11) 0%,rgba(242,244,245,.025) 34%,rgba(242,244,245,0) 58%),rgba(214,230,246,.055);
-    border:1px solid rgba(190,210,230,.22); backdrop-filter:blur(7px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6%; overflow:hidden; opacity:0 }
+    background:linear-gradient(148deg,rgba(242,244,245,.18) 0%,rgba(242,244,245,.05) 34%,rgba(242,244,245,0) 58%),rgba(23,29,35,.62);
+    border:1px solid rgba(190,210,230,.22); backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6%; overflow:hidden; opacity:0 }
   .cell.is-front .plate {
-    background:linear-gradient(148deg,rgba(242,244,245,.17) 0%,rgba(242,244,245,.04) 36%,rgba(242,244,245,0) 60%),rgba(214,230,246,.10);
-    backdrop-filter:blur(13px) }
+    background:linear-gradient(148deg,rgba(242,244,245,.26) 0%,rgba(242,244,245,.07) 36%,rgba(242,244,245,0) 60%),rgba(23,29,35,.76);
+    backdrop-filter:blur(16px) }
   .plate::before { content:""; position:absolute; inset:-1px; border:1.5px solid var(--tint); border-radius:inherit; opacity:var(--edgeint);
     box-shadow:0 0 18px -2px var(--tint), inset 0 0 16px -7px var(--tint); pointer-events:none;
     /* przejscie tytan -> czerwien w chwili, gdy plytka staje z przodu */
