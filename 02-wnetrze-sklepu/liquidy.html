@@ -82,6 +82,8 @@
     {"@type":"Question","name":"Czy liquidy mają datę przydatności?","acceptedAnswer":{"@type":"Answer","text":"Tak. Liquidy mają zwykle dwa lata od daty produkcji, a po otwarciu butelki - około sześciu miesięcy. W Asumpt pilnujemy dat świeżości na półce."}},
     {"@type":"Question","name":"Co to jest VG i PG w liquidzie?","acceptedAnswer":{"@type":"Answer","text":"VG (gliceryna roślinna) daje więcej pary i słodszy smak. PG (glikol propylenowy) daje bardziej kopiące zaciągnięcie i wyraźniejszy smak. Typowy liquid klasyczny to mieszanka 50/50 lub 70/30 VG/PG."}},
     {"@type":"Question","name":"Czym różni się liquid klasyczny od soli nikotynowej?","acceptedAnswer":{"@type":"Answer","text":"Liquid klasyczny (6/12/18 mg) daje bardziej kopiący zaciąg i sprawdza się w pod modach DTL. Sól nikotynowa (zwykle 20 mg) jest gładsza i lepiej współpracuje z podami MTL. Pełne porównanie jest na stronie soli nikotynowych."}},
+    {"@type":"Question","name":"Czy liquidy można mieszać?","acceptedAnswer":{"@type":"Answer","text":"Tak, liquidy o tej samej mocy nikotyny i podobnym profilu mieszają się bez problemu. Mieszanie różnych mocy da moc pośrednią. Przy pierwszych próbach doradzimy w sklepie."}},
+    {"@type":"Question","name":"Czy macie liquidy bez nikotyny?","acceptedAnswer":{"@type":"Answer","text":"Tak, mamy też liquidy 0 mg - dla osób, które chcą zachować rytuał e-palenia bez dawki nikotyny."}},
     {"@type":"Question","name":"Czy liquid kupię od ręki w sklepie na Żoliborzu?","acceptedAnswer":{"@type":"Answer","text":"Tak. Liquidy 10 ml dostępne są od ręki w sklepie stacjonarnym Asumpt przy Pl. Wilsona 4 w Warszawie. Oferta dotyczy wyłącznie sklepu stacjonarnego."}}
   ]
 }
@@ -249,6 +251,38 @@ h2{
   letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
 }
 
+/* linie liquidów — karta z menu smaków */
+.lines{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  grid-template-rows:auto auto auto auto;
+  border:1px solid var(--line);margin-top:30px;
+}
+.salt{padding:24px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:var(--plate)}
+@supports (grid-template-rows:subgrid){
+  .salt{display:grid;grid-row:span 4;grid-template-rows:subgrid;align-content:start}
+}
+.salt:last-child{border-right:0}
+.salt .cap{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin:0 0 12px;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--red);
+}
+.salt h3{
+  font-family:"Saira Condensed",sans-serif;font-weight:500;text-transform:uppercase;
+  font-size:23px;margin:0 0 8px;line-height:1.1;
+}
+.salt p{margin:0;color:var(--ink-2);font-size:15.5px}
+.flav{
+  list-style:none;display:flex;flex-wrap:wrap;gap:7px;
+  align-content:flex-start;align-items:flex-start;
+  margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line-soft);
+}
+.flav li{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.35;letter-spacing:.02em;
+  color:var(--ink-2);background:#131920;border:1px solid var(--line-soft);
+  padding:4px 9px;border-radius:2px;
+}
+
 /* lista jak na drzwiach */
 .door{border:1px solid var(--line);background:var(--plate);padding:0;margin-top:30px}
 .door li{
@@ -361,6 +395,19 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
   .plan .lbl{font-size:15px}
   .plan .lbl.dim{font-size:13.5px}
 }
+
+/* powrót do góry */
+.back-to-top{
+  position:fixed;right:20px;bottom:20px;z-index:40;
+  display:inline-flex;align-items:center;gap:8px;
+  background:#0B0F13;border:1px solid var(--line);border-radius:2px;
+  padding:10px 16px;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;
+  transition:border-color .2s,color .2s;
+}
+.back-to-top span{color:var(--red);font-size:13px}
+.back-to-top:hover,.back-to-top:focus-visible{border-color:var(--red);color:var(--red);outline:none}
 </style>
 </head>
 <body>
@@ -520,27 +567,53 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 
 <!-- ============ I ============ -->
 <section class="wrap">
-  <div class="shead"><span class="snum">I</span><h2>Trzy rodziny smaku</h2><span class="step">Tytoniowe · Owocowe · Miętowe</span></div>
-  <p class="sintro">Cała oferta liquidów mieści się w trzech rodzinach. Konkretne pozycje w każdej z nich zmieniają się z dostawą — to, co akurat stoi na półce, widać w sklepie.</p>
+  <div class="shead"><span class="snum">I</span><h2>Nasze smaki liquidów</h2><span class="step">Tytoniowe · Owocowe · Smakowe · Miętowe</span></div>
+  <p class="sintro">Poniżej menu liquidów 10 ml — to, co normalnie stoi na półce. Pojedyncze pozycje schodzą i wracają z dostawą, więc aktualną listę warto zweryfikować w sklepie.</p>
 
-  <div class="routes">
-    <article class="route">
-      <span class="tagline">Klasyka</span>
+  <div class="lines">
+    <article class="salt">
+      <p class="cap"><span>Liquid 10 ml · 6/12/18 mg</span><span>Klasyka</span></p>
       <h3>Tytoniowe</h3>
-      <p>Najbliższe dotychczasowym papierosom. Dobry punkt startowy dla osoby przechodzącej z palenia tradycyjnego — mniej zaskoczeń w pierwszych dniach.</p>
-      <span class="ohm">6/12/18 mg</span>
+      <p>Pierwszy wybór dla osób przechodzących z tradycyjnych papierosów — smakowo zbliżone do popularnych marek, mniej zaskoczeń w pierwszych dniach.</p>
+      <ul class="flav">
+        <li>Camel</li>
+        <li>Brightleaf Tobacco</li>
+        <li>Smak Żoliborza</li>
+        <li>Virginia</li>
+      </ul>
     </article>
-    <article class="route">
-      <span class="tagline">Świeżość</span>
+    <article class="salt">
+      <p class="cap"><span>Liquid 10 ml · 6/12/18 mg</span><span>Świeżość</span></p>
       <h3>Owocowe</h3>
-      <p>Największy wybór smaków — od pojedynczych owoców po złożone mieszanki. Zwykle drugi krok, po oswojeniu się z e-paleniem.</p>
-      <span class="ohm">6/12/18 mg</span>
+      <p>Najczęściej wybierane po 2–4 tygodniach e-palenia — lekkie, świeże, z naturalnym profilem smaku.</p>
+      <ul class="flav">
+        <li>Arbuz</li>
+        <li>Brzoskwinia</li>
+        <li>Malina</li>
+        <li>Owoce leśne</li>
+        <li>Porzeczka</li>
+        <li>Truskawka</li>
+        <li>Winogrono Ice</li>
+        <li>Wiśnia</li>
+      </ul>
     </article>
-    <article class="route">
-      <span class="tagline">Chłód</span>
+    <article class="salt">
+      <p class="cap"><span>Liquid 10 ml · 6/12/18 mg</span><span>Kompozycje</span></p>
+      <h3>Smakowe</h3>
+      <p>Wielowarstwowe smaki dla doświadczonych użytkowników — polecamy spróbować po tytoniach i owocach.</p>
+      <ul class="flav">
+        <li>Kawa</li>
+        <li>Cactus Lemon &amp; Green Tea</li>
+      </ul>
+    </article>
+    <article class="salt">
+      <p class="cap"><span>Liquid 10 ml · 6/12/18 mg</span><span>Chłód</span></p>
       <h3>Miętowe</h3>
-      <p>Mentol w czystej postaci albo w połączeniu z owocem. Wyraźne orzeźwienie w zaciągnięciu, dobre dla kogoś, kto lubi chłodny finisz.</p>
-      <span class="ohm">6/12/18 mg</span>
+      <p>Orzeźwiające, „czyste” odczucie — dobre dla osób, które paliły wcześniej mentole. Świetne też latem.</p>
+      <ul class="flav">
+        <li>Menthol</li>
+        <li>Jabłko Mięta</li>
+      </ul>
     </article>
   </div>
 
@@ -618,6 +691,14 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
       <p>Liquid klasyczny (6/12/18 mg) daje bardziej kopiący zaciąg i dobrze sprawdza się w pod modach DTL. Sól nikotynowa (zwykle 20 mg) jest gładsza i lepiej współpracuje z podami MTL. Pełne porównanie jest na stronie <a class="inl" href="sole.html">soli nikotynowych</a>.</p>
     </details>
     <details>
+      <summary>Czy liquidy można mieszać?</summary>
+      <p>Tak, liquidy o tej samej mocy nikotyny i podobnym profilu (np. dwa owocowe) mieszają się bez problemu. Mieszanie różnych mocy da moc pośrednią. Przy pierwszych próbach doradzimy w sklepie.</p>
+    </details>
+    <details>
+      <summary>Czy macie liquidy bez nikotyny?</summary>
+      <p>Tak, mamy też liquidy 0 mg — dla osób, które chcą zachować rytuał e-palenia bez dawki nikotyny. To często ostatni krok po dłuższej drodze od papierosów do wapowania bez nikotyny.</p>
+    </details>
+    <details>
       <summary>Czy liquid kupię od ręki na Pl. Wilsona?</summary>
       <p>Tak. Liquidy 10 ml dostępne są od ręki w sklepie stacjonarnym Asumpt przy Pl. Wilsona 4 w Warszawie, na Żoliborzu, tuż przy wyjściu ze stacji metra Plac Wilsona. Oferta dotyczy wyłącznie sklepu stacjonarnego.</p>
     </details>
@@ -648,5 +729,6 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
   </ul>
   <p class="fnote">Asumpt s.c. · Pl. Wilsona 4, 01-626 Warszawa · 22 839 86 33 · Oferta dotyczy wyłącznie sklepu stacjonarnego · Tylko dla osób pełnoletnich 18+</p>
 </footer>
+<a class="back-to-top" href="#" aria-label="Powrót na górę strony"><span aria-hidden="true">↑</span> Powrót</a>
 </body>
 </html>
