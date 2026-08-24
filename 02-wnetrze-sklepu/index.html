@@ -219,19 +219,17 @@
 </template>
 
 <style>
-  .real-sign{position:fixed;top:max(16px,env(safe-area-inset-top,0px));left:16px;z-index:50;
-    max-width:min(300px,60vw);background:rgba(5,7,10,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:11px 15px;pointer-events:none}
-  .real-sign p{margin:0;font-family:"Cascadia Mono",Consolas,"SF Mono",monospace;font-size:.62rem;
-    letter-spacing:.14em;text-transform:uppercase;color:#ef4444}
-  .real-sign h1{margin:4px 0 0;font-family:"Segoe UI",system-ui,sans-serif;font-size:.85rem;font-weight:600;color:#e8e6e1}
-  .real-sign .desc{margin:5px 0 0;font-family:"Segoe UI",system-ui,sans-serif;font-size:.68rem;font-weight:400;color:#a2a8ae;line-height:1.4}
-  @media (max-width:640px){.real-sign{max-width:64vw;padding:8px 11px;top:auto;bottom:max(96px,calc(96px + env(safe-area-inset-bottom,0px)))}.real-sign h1{font-size:.72rem}.real-sign .desc{font-size:.6rem}}
+  .real-sign{position:fixed;top:max(16px,env(safe-area-inset-top,0px));left:16px;z-index:50;pointer-events:none}
+  .real-sign h1{margin:0;font-family:"Cascadia Mono",Consolas,"SF Mono",monospace;font-weight:400;
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#a2a8ae;white-space:nowrap}
+  .real-sign h1 b{color:#ef4444;font-weight:600}
+  @media (max-width:640px){
+    .real-sign{left:50%;top:70vh;transform:translateX(-50%);text-align:center}
+    .real-sign h1{white-space:normal;font-size:.66rem}
+  }
 </style>
 <div class="real-sign">
-  <p>Asumpt · Żoliborz · Warszawa</p>
-  <h1>Asumpt, Pl. Wilsona 4</h1>
-  <p class="desc">Zestawy, liquidy, sole, części i akcesoria — wybierz kategorię.</p>
+  <h1><b>Asumpt</b> · Pl. Wilsona 4, Żoliborz</h1>
 </div>
 
 <div class="wrap">
