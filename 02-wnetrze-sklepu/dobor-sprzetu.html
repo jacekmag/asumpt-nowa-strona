@@ -385,6 +385,19 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
   .ping{animation:none;opacity:.45;transform:scale(1.5)}
   .ping.p2,.ping.p3{display:none}
 }
+
+/* powrót do góry */
+.back-to-top{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:max-content;margin:40px auto 0;
+  background:#0B0F13;border:1px solid var(--red);border-radius:2px;
+  padding:14px 30px;
+  font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.back-to-top span{color:var(--red);font-size:13px}
+.back-to-top:hover,.back-to-top:focus-visible{background:rgba(229,18,10,.12);color:var(--ink);outline:none}
 </style>
 </head>
 <body>
@@ -1015,5 +1028,8 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
   </ul>
   <p class="fnote">Asumpt s.c. · Pl. Wilsona 4, 01-626 Warszawa · 22 839 86 33 · Oferta dotyczy wyłącznie sklepu stacjonarnego · Tylko dla osób pełnoletnich 18+</p>
 </footer>
+<div class="wrap" style="text-align:center;padding-bottom:60px">
+  <a class="back-to-top" href="#" aria-label="Powrót na górę strony"><span aria-hidden="true">↑</span> Powrót</a>
+</div>
 </body>
 </html>
