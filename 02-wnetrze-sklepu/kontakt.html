@@ -356,6 +356,8 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 .plan .pinring{fill:none;stroke:var(--red);stroke-width:1.4}
 .plan .metro{fill:#0F141A;stroke:#5C6E79;stroke-width:1}
 .plan .metroM{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:15px;fill:var(--ink)}
+/* strzalki na koncach ulic — pokazuja, ze droga biegnie dalej poza kadr */
+.plan .cont{fill:none;stroke:#5C6E79;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
 
 /* etykiety w pasku danych — czerwone */
 .fact .label{color:var(--red)}
@@ -428,7 +430,7 @@ section.wrap{padding-top:34px}
     </figure>
 
     <div class="mapbox">
-<svg class="plan" viewBox="0 0 500 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Schemat Placu Wilsona: sklep Asumpt pod numerem 4, tuż przy wyjściu ze stacji metra">
+<svg class="plan" viewBox="0 0 500 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Schemat Placu Wilsona: sklep Asumpt pod numerem 4, tuż przy wyjściu ze stacji metra. Przez plac przebiegają ulice Mickiewicza (od północy jako Słowackiego, dalej na południe jako Mickiewicza) oraz Krasińskiego (wschód-zachód)">
 <defs><radialGradient id="sweepGrad"><stop offset="0%" stop-color="#E5120A" stop-opacity=".50"/><stop offset="100%" stop-color="#E5120A" stop-opacity="0"/></radialGradient></defs>
 <g><path class="road" d="M250 0 V 112"/><path class="road" d="M250 470 V 352"/>
 <path class="road" d="M0 232 H 130"/><path class="road" d="M500 232 H 370"/></g>
@@ -518,10 +520,14 @@ section.wrap{padding-top:34px}
 <circle class="pin" cx="281.1" cy="116.1" r="5.5"/>
 <path class="arrow" d="M286.1 111.1 L 312 90 H 418"/>
 <text class="asumpt" x="316" y="80">ASUMPT</text>
-<text class="lbl" x="264" y="36">Słowackiego</text>
-<text class="lbl" x="264" y="450">Mickiewicza</text>
-<text class="lbl" x="14" y="218">Krasińskiego</text>
-<text class="lbl" x="486" y="218" text-anchor="end">Krasińskiego</text>
+<path class="cont" d="M244 16 L250 8 L256 16"/>
+<path class="cont" d="M244 454 L250 462 L256 454"/>
+<path class="cont" d="M16 226 L8 232 L16 238"/>
+<path class="cont" d="M484 226 L492 232 L484 238"/>
+<text class="lbl" x="264" y="50">Słowackiego</text>
+<text class="lbl" x="264" y="438">Mickiewicza</text>
+<text class="lbl" x="40" y="218">Krasińskiego</text>
+<text class="lbl" x="460" y="218" text-anchor="end">Krasińskiego</text>
 <text class="lbl dim" transform="translate(237,414) rotate(-90)" text-anchor="middle">oś tramwajowa</text>
 <g transform="translate(468,46)"><line class="tick maj" x1="0" y1="18" x2="0" y2="-11"/><path class="pin" d="M0 -18 L5 -6 L0 -9.5 L-5 -6 Z"/><text class="lbl hi" x="0" y="34" text-anchor="middle">N</text></g>
 <g transform="translate(24,438)"><line class="tick maj" x1="0" y1="0" x2="62" y2="0"/><line class="tick maj" x1="0" y1="-4" x2="0" y2="4"/><line class="tick maj" x1="62" y1="-4" x2="62" y2="4"/><text class="lbl dim" x="0" y="-9">ok. 50 m</text></g>
