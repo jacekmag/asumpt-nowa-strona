@@ -345,59 +345,12 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 .mapembed-tint{position:absolute;inset:0;pointer-events:none;
   box-shadow:inset 0 0 0 1px rgba(229,18,10,.4), inset 0 0 40px 8px rgba(16,20,24,.55)}
 .plan{flex:1;width:100%;height:100%;min-height:0;display:block;background:var(--plate)}
-.plan .road{stroke:#37434C;stroke-width:9;stroke-linecap:round;fill:none}
-.plan .roadline{stroke:#141A20;stroke-width:1;fill:none}
-.plan .tick{stroke:#4A5A65;stroke-width:1}
-.plan .tick.maj{stroke:#7C8A93}
-.plan .ring{fill:none;stroke:#5C6E79;stroke-width:1.25}
-.plan .ring2{fill:none;stroke:#2A343C;stroke-width:5}
-.plan .lbl{
-  font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
-  fill:var(--ink);text-transform:uppercase;
-}
-.plan .lbl.hi{fill:var(--ink)}
-.plan .lbl.dim{fill:var(--muted);font-size:10.5px}
-.plan .pin{fill:var(--red)}
-.plan .pinring{fill:none;stroke:var(--red);stroke-width:1.4}
-.plan .metro{fill:#0F141A;stroke:#5C6E79;stroke-width:1}
-.plan .metroM{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:15px;fill:var(--ink)}
-/* strzalki na koncach ulic — pokazuja, ze droga biegnie dalej poza kadr */
-.plan .cont{fill:none;stroke:#5C6E79;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
-/* zabudowa wokol placu — proste bloki, wylacznie do orientacji */
-.plan .bldg{fill:var(--titan);opacity:.32}
-
 /* etykiety w pasku danych — czerwone */
 .fact .label{color:var(--red)}
 
 /* odstęp nad sekcjami — .wrap (klasa) wygrywał z selektorem `section`,
    przez co padding-top nigdy nie działał */
 section.wrap{padding-top:34px}
-
-/* wskazówka do sklepu — wyłącznie odcinki proste */
-.plan .arrow{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
-.plan .asumpt{
-  font-family:"Saira Condensed",sans-serif;font-weight:500;font-size:19px;
-  letter-spacing:.10em;fill:var(--ink);text-transform:uppercase;
-}
-
-/* radar: obrót wycinka + rozchodzące się pierścienie */
-.plan .ping{
-  fill:none;stroke:var(--red);stroke-width:1.8;
-  transform-box:fill-box;transform-origin:center;
-  animation:radarPing 3.4s cubic-bezier(.15,.55,.3,1) infinite;
-}
-.plan .ping.p2{animation-delay:1.13s}
-.plan .ping.p3{animation-delay:2.26s}
-@keyframes radarPing{
-  0%  {transform:scale(.35);opacity:1}
-  65% {transform:scale(3.4);opacity:0}
-  100%{transform:scale(3.4);opacity:0}
-}
-@media (prefers-reduced-motion:reduce){
-  .plan .ping{animation:none;opacity:.45;transform:scale(1.5)}
-  .plan .ping.p2,.plan .ping.p3{display:none}
-  .plan .radar{display:none}
-}
 
 /* powrót do góry */
 .back-to-top{
