@@ -359,6 +359,8 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 .plan .metroM{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:15px;fill:var(--ink)}
 /* strzalki na koncach ulic — pokazuja, ze droga biegnie dalej poza kadr */
 .plan .cont{fill:none;stroke:#5C6E79;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
+/* zabudowa wokol placu — proste bloki, wylacznie do orientacji */
+.plan .bldg{fill:var(--titan);opacity:.32}
 
 /* etykiety w pasku danych — czerwone */
 .fact .label{color:var(--red)}
@@ -433,8 +435,20 @@ section.wrap{padding-top:34px}
     <div class="mapbox">
 <svg class="plan" viewBox="0 0 500 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Schemat Placu Wilsona: sklep Asumpt pod numerem 4, tuż przy wyjściu ze stacji metra. Przez plac przebiegają ulice Mickiewicza (od północy jako Słowackiego, dalej na południe jako Mickiewicza) oraz Krasińskiego (wschód-zachód)">
 <defs><radialGradient id="sweepGrad"><stop offset="0%" stop-color="#E5120A" stop-opacity=".50"/><stop offset="100%" stop-color="#E5120A" stop-opacity="0"/></radialGradient></defs>
-<g><path class="road" d="M250 0 V 112"/><path class="road" d="M250 470 V 352"/>
-<path class="road" d="M0 232 H 130"/><path class="road" d="M500 232 H 370"/></g>
+<g>
+<path class="road" d="M156 0 L346 470"/>
+<path class="road" d="M0 285 L500 179"/>
+</g>
+<g>
+<rect class="bldg" x="30" y="150" width="34" height="22" transform="rotate(-8 47 161)"/>
+<rect class="bldg" x="25" y="196" width="40" height="26" transform="rotate(4 45 209)"/>
+<rect class="bldg" x="230" y="18" width="46" height="24"/>
+<rect class="bldg" x="340" y="40" width="36" height="22" transform="rotate(10 358 51)"/>
+<rect class="bldg" x="402" y="250" width="42" height="26" transform="rotate(-6 423 263)"/>
+<rect class="bldg" x="420" y="302" width="34" height="20"/>
+<rect class="bldg" x="150" y="400" width="44" height="24" transform="rotate(5 172 412)"/>
+<rect class="bldg" x="262" y="422" width="36" height="20"/>
+</g>
 <circle class="ring2" cx="250" cy="232" r="120"/>
 <circle class="ring" cx="250" cy="232" r="120"/>
 <circle class="ring" cx="250" cy="232" r="109" style="stroke:#2F3A43"/>
@@ -510,27 +524,26 @@ section.wrap{padding-top:34px}
 <line class="tick" x1="217.9" y1="112.2" x2="217.1" y2="109.3"/>
 <line class="tick" x1="228.5" y1="109.9" x2="227.9" y2="106.9"/>
 <line class="tick" x1="239.2" y1="108.5" x2="238.9" y2="105.5"/>
-<path class="roadline" style="stroke:#6B7C87;stroke-dasharray:3 4" d="M250 14 V 456"/>
+<path class="roadline" style="stroke:#6B7C87;stroke-dasharray:3 4" d="M161 13 L341 457"/>
 <rect class="metro" x="231" y="202" width="38" height="38" rx="4"/>
 <text class="metroM" x="250" y="229" text-anchor="middle">M</text>
 <text class="lbl hi" x="250" y="262" text-anchor="middle">M1 · Plac Wilsona</text>
-<g class="radar" transform="translate(281.1,116.1)"><g><path d="M0 0 L0 -38 A38 38 0 0 1 27 -27 Z" fill="url(#sweepGrad)"/><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="3.4s" repeatCount="indefinite"/></g></g>
-<circle class="ping p1" cx="281.1" cy="116.1" r="7"/>
-<circle class="ping p2" cx="281.1" cy="116.1" r="7"/>
-<circle class="ping p3" cx="281.1" cy="116.1" r="7"/>
-<circle class="pin" cx="281.1" cy="116.1" r="5.5"/>
-<path class="arrow" d="M286.1 111.1 L 312 90 H 418"/>
-<text class="asumpt" x="316" y="80">ASUMPT</text>
-<path class="cont" d="M244 16 L250 8 L256 16"/>
-<path class="cont" d="M244 454 L250 462 L256 454"/>
-<path class="cont" d="M16 226 L8 232 L16 238"/>
-<path class="cont" d="M484 226 L492 232 L484 238"/>
-<text class="lbl" x="264" y="50">Słowackiego</text>
-<text class="lbl" x="264" y="438">Mickiewicza</text>
-<text class="lbl" x="40" y="218">Krasińskiego</text>
-<text class="lbl" x="460" y="218" text-anchor="end">Krasińskiego</text>
-<text class="lbl dim" transform="translate(237,414) rotate(-90)" text-anchor="middle">oś tramwajowa</text>
-<g transform="translate(468,46)"><line class="tick maj" x1="0" y1="18" x2="0" y2="-11"/><path class="pin" d="M0 -18 L5 -6 L0 -9.5 L-5 -6 Z"/><text class="lbl hi" x="0" y="34" text-anchor="middle">N</text></g>
+<g class="radar" transform="translate(188,128)"><g><path d="M0 0 L0 -38 A38 38 0 0 1 27 -27 Z" fill="url(#sweepGrad)"/><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="3.4s" repeatCount="indefinite"/></g></g>
+<circle class="ping p1" cx="188" cy="128" r="7"/>
+<circle class="ping p2" cx="188" cy="128" r="7"/>
+<circle class="ping p3" cx="188" cy="128" r="7"/>
+<circle class="pin" cx="188" cy="128" r="5.5"/>
+<path class="arrow" d="M193 123 L 220 95 H 330"/>
+<text class="asumpt" x="224" y="85">ASUMPT</text>
+<path class="cont" d="M164.6 5.2 L156 0 L153.4 9.7"/>
+<path class="cont" d="M337.4 464.8 L346 470 L348.6 460.3"/>
+<path class="cont" d="M6.6 277.5 L0 285 L9.1 289.2"/>
+<path class="cont" d="M493.4 186.5 L500 179 L490.9 174.8"/>
+<text class="lbl" x="188" y="53">Słowackiego</text>
+<text class="lbl" x="298" y="405">Mickiewicza</text>
+<text class="lbl" x="42" y="270">Krasińskiego</text>
+<text class="lbl" x="456" y="190" text-anchor="end">Krasińskiego</text>
+<text class="lbl dim" transform="translate(323,450) rotate(-68)" text-anchor="middle">oś tramwajowa</text><g transform="translate(468,46)"><line class="tick maj" x1="0" y1="18" x2="0" y2="-11"/><path class="pin" d="M0 -18 L5 -6 L0 -9.5 L-5 -6 Z"/><text class="lbl hi" x="0" y="34" text-anchor="middle">N</text></g>
 <g transform="translate(24,438)"><line class="tick maj" x1="0" y1="0" x2="62" y2="0"/><line class="tick maj" x1="0" y1="-4" x2="0" y2="4"/><line class="tick maj" x1="62" y1="-4" x2="62" y2="4"/><text class="lbl dim" x="0" y="-9">ok. 50 m</text></g>
 </svg>
       <div class="mapbar">
