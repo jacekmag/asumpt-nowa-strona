@@ -2,82 +2,74 @@
 <html lang="pl">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Scena przedsionka</title>
+<title>Wnętrze sklepu · Asumpt · Vape Shop Żoliborz</title>
+<meta name="description" content="Asumpt – sklep z e-papierosami na Żoliborzu, Pl. Wilsona 4. Dobór sprzętu, zestawy startowe, liquidy, sole nikotynowe, części i akcesoria. Tuż przy metrze Plac Wilsona.">
+<link rel="canonical" href="https://epapierosy-asumpt.pl/02-wnetrze-sklepu/index.html">
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="Wnętrze sklepu · Asumpt · Vape Shop Żoliborz">
+<meta property="og:description" content="Dobór sprzętu, zestawy startowe, liquidy, sole nikotynowe, części i akcesoria — sklep stacjonarny na Żoliborzu.">
+<meta property="og:image" content="https://epapierosy-asumpt.pl/asumpt-witryna-zoliborz.png">
+<meta property="og:locale" content="pl_PL">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "@id": "https://epapierosy-asumpt.pl/#localbusiness",
+  "name": "Asumpt e-produkty",
+  "alternateName": "Vape Shop ASUMPT",
+  "url": "https://epapierosy-asumpt.pl/",
+  "description": "Sklep stacjonarny z e-papierosami, zestawami startowymi, liquidami i solami nikotynowymi na Pl. Wilsona 4 w Warszawie.",
+  "image": "https://epapierosy-asumpt.pl/asumpt-witryna-zoliborz.png",
+  "logo": "https://epapierosy-asumpt.pl/logo-asumpt.png",
+  "telephone": "+48228398633",
+  "email": "asumpt.sc@gmail.com",
+  "priceRange": "$$",
+  "currenciesAccepted": "PLN",
+  "paymentAccepted": "Cash, Card",
+  "areaServed": "Warszawa, Żoliborz",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Plac Wilsona 4",
+    "postalCode": "01-626",
+    "addressLocality": "Warszawa",
+    "addressCountry": "PL"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 52.269328, "longitude": 20.985132 },
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"11:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"11:00","closes":"14:00"}
+  ],
+  "sameAs": ["https://www.facebook.com/profile.php?id=100057228949370"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://epapierosy-asumpt.pl/02-wnetrze-sklepu/index.html#breadcrumb",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Strona główna","item":"https://epapierosy-asumpt.pl/"},
+    {"@type":"ListItem","position":2,"name":"Wnętrze sklepu","item":"https://epapierosy-asumpt.pl/02-wnetrze-sklepu/index.html"}
+  ]
+}
+</script>
 
 <style>
   :root { --ground:#15171a; --line:#2b3036; --line-soft:#23272c; --ink:#e8e6e1; --ink-2:#a2a8ae; --ink-3:#6d747b;
     --body:"Segoe UI",system-ui,-apple-system,sans-serif; --mono:"Cascadia Mono",Consolas,"SF Mono",monospace }
   * { box-sizing:border-box }
   body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased }
-  .wrap { max-width:1180px; margin:0 auto; padding:0 clamp(16px,4vw,40px) }
-  .masthead { padding:clamp(40px,7vw,72px) 0 clamp(14px,3vw,22px) }
-  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); margin:0 0 16px }
-  h1 { font-family:Bahnschrift,"DIN Alternate",sans-serif; font-weight:600; font-size:clamp(38px,7.5vw,80px); line-height:.94; margin:0 0 18px }
-  .lead { max-width:64ch; color:var(--ink-2); margin:0 0 10px; font-size:clamp(15px,1.9vw,17.5px) }
-  .lead strong { color:var(--ink); font-weight:600 }
-  code { font-family:var(--mono); font-size:.86em; color:#3ddbff }
-
-  /* PANEL ROBOCZY CHOWAMY TUTAJ, W NAGLOWKU - NIE NA KONCU PLIKU.
-     Ta sama regula stoi jeszcze raz na koncu pliku i tam BYLA ZA POZNO:
-     dzielilo ja od znacznika panelu 230 000 bajtow (tlo i logo wpisane
-     w plik jako data URI). Przegladarka rysuje to, co juz sparsowala,
-     wiec zdazyla pokazac suwaki i naglowek na ulamek sekundy, zanim
-     doczytala regule. Zmierzone: w chwili parsowania panelu .console
-     mialo display:flex, a .masthead display:block.
-     Regula w naglowku dziala, zanim panel w ogole powstanie.
-     Elementy ZOSTAJA w DOM - skrypt sceny szuka ich po nazwach
-     (data-replay, data-copy, data-gvar) i wywrocilby sie na brakujacych. */
-  .masthead, .console, .cap, .ctrl, .closing { display:none !important }
-
-  /* Reszta tego samego bloku, z tego samego powodu. Czern od pierwszego
-     bajtu: zanim doczyta sie dalsza czesc pliku, kadr i tak sie jeszcze
-     przesuwa, ale czarny prostokat na czarnym tle jest niewidoczny.
-     Bez tego przez ulamek sekundy widac szare tlo panelu roboczego. */
+  .wrap { max-width:none; margin:0 auto; padding:0 }
   html, body { background:#04060a; margin:0; overflow:hidden }
-  .wrap { max-width:none; padding:0 }
   .sheet { padding:0; gap:0 }
   .stage { border:0 }
-
-  .console { position:sticky; top:0; z-index:95; border:1px solid var(--line); background:rgba(14,17,21,.97); backdrop-filter:blur(10px);
-    padding:12px 18px; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center }
-  .knob { display:flex; flex-direction:column; gap:4px; flex:0 1 168px; min-width:136px }
-  .knob label { font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); display:flex; justify-content:space-between; gap:8px }
-  .knob label b { color:var(--ink-2); font-weight:400; font-variant-numeric:tabular-nums }
-  .knob input[type=range] { width:100%; margin:0; height:17px; cursor:pointer; accent-color:#3ddbff }
-  .knob.hot input { accent-color:#ff8a3d }
-  .knob input:focus-visible { outline:1px solid var(--ink-2); outline-offset:3px }
-  .btn { background:transparent; border:1px solid var(--line); color:var(--ink-2); font-family:var(--mono); font-size:10.5px; letter-spacing:.08em;
-    text-transform:uppercase; padding:7px 11px; cursor:pointer; transition:border-color .2s,color .2s,background .2s }
-  .btn:hover,.btn:focus-visible { border-color:var(--ink-2); color:var(--ink) }
-  .btn:focus-visible { outline:1px solid var(--ink-2); outline-offset:3px }
-  .spacer { flex:1 1 auto }
-
-  .seg { display:flex; flex-direction:column; gap:4px }
-  .seg > span { font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3) }
-  .seg .opts { display:flex; border:1px solid var(--line) }
-  .seg button { background:transparent; border:0; border-right:1px solid var(--line); color:var(--ink-3); font-family:var(--mono);
-    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:6px 10px; cursor:pointer; transition:color .2s,background .2s }
-  .seg button:last-child { border-right:0 }
-  .seg button:hover { color:var(--ink) }
-  .seg button[aria-pressed=true] { background:#1b2129; color:#3ddbff }
-  .seg button:focus-visible { outline:1px solid var(--ink-2); outline-offset:-3px }
-
-  .sheet { padding:22px 0 30px; display:grid; gap:46px }
-  figure { margin:0 }
-  .cap { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:0 0 8px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--ink-3) }
-  .cap .num { color:var(--ink); font-size:13px }
-  .cap .src { color:var(--ink-2); text-transform:none; letter-spacing:.02em }
-  .cap .tag { margin-left:auto; padding:2px 8px; border:1px solid var(--line) }
-  .tag.win { color:#4cff9e; border-color:#2c5a44 }
-  .tag.new { color:#ffd23d; border-color:#5c5124 }
-  .ctrl { border:1px solid var(--line); border-bottom:0; background:#0e1116; padding:11px 14px; display:flex; flex-wrap:wrap; gap:11px 20px; align-items:center }
 
   .stage { position:relative; aspect-ratio:16/9; border:1px solid var(--line); overflow:hidden; isolation:isolate; touch-action:pan-y;
     --dark:.62; --darkr:40; --lines:0; --bgy:100; --edgeint:1; --radar:.5; --tempo:0; --rise:3000;
     /* jeden swiat: plytki w tytanie, przednia w czerwieni. Kategorie rozroznia
        ikona i nazwa, nie kolor - czerwien zostaje jedynym akcentem. */
     --titan:#93A0A8; --tint-front:#E5120A;
-    /* kolory szyldu, odpipetowane z 01-wejscie-strony/2.png: czerwony neon "asumpt" i biale "e-produkty" */
+    /* kolory szyldu, odpipetowane z asumpt-witryna-zoliborz.png: czerwony neon "asumpt" i biale "e-produkty" */
     --neon:#e5120a; --neon-hot:#fd180b; --neon-w:#dcdce4;
     --disp:"Sitka Heading",Constantia,Georgia,serif; background:#04060a }
   @media (max-width:640px){ .stage{aspect-ratio:3/4} }
@@ -205,12 +197,6 @@
   }
 
 
-  .closing { border-top:1px solid var(--line); padding:26px 0 80px }
-  .closing h2 { font-family:Bahnschrift,sans-serif; font-weight:600; font-size:clamp(22px,3.6vw,34px); margin:0 0 14px }
-  .n-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; margin-top:20px }
-  .n { border-top:1px solid var(--line-soft); padding-top:13px }
-  .n b { display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px }
-  .n p { margin:0; color:var(--ink-2); font-size:14px }
   /* Przy wylaczonych animacjach samo "animation:none" zostawialo scene CZARNA: plytki, logo i podpis
      startuja z opacity 0 i dochodza do 1 dopiero animacja, a zaciemnienie startuje z 1.
      Trzeba wiec dopisac stan koncowy recznie. */
@@ -232,53 +218,24 @@
   </div></div>
 </template>
 
+<style>
+  .real-sign{position:fixed;top:max(16px,env(safe-area-inset-top,0px));left:16px;z-index:50;pointer-events:none}
+  .real-sign h1{margin:0;font-family:"Cascadia Mono",Consolas,"SF Mono",monospace;font-weight:400;
+    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#a2a8ae;white-space:nowrap}
+  .real-sign h1 b{color:#ef4444;font-weight:600}
+  @media (max-width:640px){
+    .real-sign{left:50%;top:63vh;top:63dvh;transform:translateX(-50%);text-align:center}
+    .real-sign h1{white-space:normal;font-size:.66rem}
+  }
+</style>
+<div class="real-sign">
+  <h1><b>Asumpt</b> · Pl. Wilsona 4, Żoliborz</h1>
+</div>
+
 <div class="wrap">
-  <header class="masthead">
-    <p class="eyebrow">Asumpt · Etap 2 · Scena wybrana</p>
-    <h1>Przedsionek Asumpt</h1>
-    <p class="lead">Wybrana scena przedsionka: sześć płytek na obrotowym pierścieniu, tło <strong>highway-retrowave</strong> przyciemnione w środku kadru, zapłon jarzeniówki.</p>
-    <p class="lead">Suwaki zostawione do dalszego strojenia. Przeciągnij scenę w bok, żeby obrócić pierścień.</p>
-  </header>
-
-  <div class="console">
-    <div class="knob"><label for="g-edge">Krawędź płytek <b data-out="edgeint">100</b></label><input type="range" id="g-edge" min="0" max="100" value="100" data-gvar="edgeint"></div>
-    <div class="knob"><label for="g-radar">Radar <b data-out="radar">50</b></label><input type="range" id="g-radar" min="0" max="100" value="50" data-gvar="radar"></div>
-    <div class="knob"><label for="g-tempo">Tempo zapłonu <b data-out="tempo">0</b></label><input type="range" id="g-tempo" min="0" max="100" value="0" data-gvar="tempo"></div>
-    <span class="spacer"></span>
-    <button class="btn" data-replay>↺ Powtórz wszystkie</button>
-    <button class="btn" data-copy>Skopiuj ustawienia</button>
-  </div>
-
   <div class="sheet">
-
-    <figure data-fig="A">
-      <figcaption class="cap"><span class="num">✦</span><span class="src">highway-retrowave</span><span class="tag win">scena wybrana</span></figcaption>
-      <div class="ctrl">
-        <div class="knob"><label>Przyciemnienie <b data-o="dark">62</b></label><input type="range" min="0" max="100" value="62" data-var="dark"></div>
-        <div class="knob hot"><label>Zasięg przyciemn. <b data-o="darkr">40</b></label><input type="range" min="15" max="95" value="40" data-var="darkr" data-raw="1"></div>
-        <div class="knob hot"><label>Pozycja tła <b data-o="bgy">100</b></label><input type="range" min="0" max="100" value="100" data-var="bgy" data-raw="1"></div>
-        <div class="knob"><label>Linie walca <b data-o="lines">0</b></label><input type="range" min="0" max="100" value="0" data-var="lines"></div>
-        <div class="knob hot"><label>Wstawanie światła (ms) <b data-o="rise">3000</b></label><input type="range" min="800" max="6000" step="100" value="3000" data-var="rise" data-raw="1"></div>
-        <div class="seg" data-seg="back"><span>Tylne płytki</span><div class="opts">
-          <button type="button" data-val="flip" aria-pressed="true">Obrót 180°</button>
-          <button type="button" data-val="hide" aria-pressed="false">Ukryte</button>
-          <button type="button" data-val="mirror" aria-pressed="false">Lustro (błąd)</button>
-        </div></div>
-      </div>
-      <div class="stage" data-stage><div class="bgimg" style="background-image:url(../tapeta-karuzela.svg)"></div></div>
-    </figure>
-
-    </div>
-
-  <section class="closing">
-    <h2>O prześwicie przez płytkę</h2>
-    <div class="n-grid">
-      <div class="n"><b>Jak to działa</b><p>Przednia płytka ma <code>backdrop-filter: blur(13px)</code> i półprzezroczyste wypełnienie — pobiera to, co za nią. Jasne słońce z tyłu naprawdę przez nią przejdzie.</p></div>
-      <div class="n"><b>Konflikt do rozegrania</b><p>Przyciemnienie 100 gasi środek kadru, czyli dokładnie miejsce, gdzie stoi przednia płytka. Zmniejsz <code>Zasięg</code>, a czerń skurczy się do samego środka i prześwit wróci.</p></div>
-      <div class="n"><b>Pozycja tła</b><p>Przesuwa obraz w pionie. Słońce można ustawić tak, żeby wypadło dokładnie za płytką albo tuż nad nią.</p></div>
-      <div class="n"><b>Test</b><p>Obróć pierścień i sprawdź, czy boczne płytki są nadal czytelne. To kryterium przeżyło wszystkie rundy.</p></div>
-    </div>
-  </section>
+    <div class="stage" data-stage data-back="flip"><div class="bgimg" style="background-image:url(../tapeta-karuzela.svg)"></div></div>
+  </div>
 </div>
 
 <script>
@@ -373,58 +330,6 @@
     scenes.forEach(function(sc){ sc.stage.classList.remove("lit"); shuffle(sc); void sc.stage.offsetWidth;
       setTimeout(function(){ sc.stage.classList.add("lit"); },380); });
   }
-  document.querySelector("[data-replay]").addEventListener("click",play);
-
-  document.querySelectorAll("input[data-gvar]").forEach(function(inp){
-    var out=document.querySelector('[data-out="'+inp.dataset.gvar+'"]');
-    var apply=function(){ var v=(inp.value/100).toFixed(2);
-      scenes.forEach(function(sc){ sc.stage.style.setProperty("--"+inp.dataset.gvar,v); });
-      out.textContent=inp.value; };
-    inp.addEventListener("input",apply); apply();
-  });
-
-  document.querySelectorAll("figure").forEach(function(fig){
-    var stage=fig.querySelector("[data-stage]");
-    fig.querySelectorAll("input[data-var]").forEach(function(inp){
-      var o=inp.closest(".knob").querySelector("[data-o]");
-      var apply=function(){
-        var v = inp.dataset.raw ? inp.value : (inp.value/100).toFixed(2);
-        stage.style.setProperty("--"+inp.dataset.var, v);
-        o.textContent=inp.value;
-      };
-      inp.addEventListener("input",apply); apply();
-    });
-  });
-
-  document.querySelectorAll("[data-seg=back]").forEach(function(seg){
-    var stage=seg.closest("figure").querySelector("[data-stage]");
-    var opts=Array.prototype.slice.call(seg.querySelectorAll("button"));
-    var set=function(v){ stage.setAttribute("data-back",v);
-      opts.forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.val===v ? "true":"false"); }); };
-    opts.forEach(function(b){ b.addEventListener("click",function(){ set(b.dataset.val); }); });
-    set(seg.querySelector('button[aria-pressed="true"]').dataset.val);
-  });
-
-  document.querySelector("[data-copy]").addEventListener("click",function(e){
-    var lines=["Runda 12"];
-    document.querySelectorAll("figure").forEach(function(fig){
-      var name=fig.querySelector(".src").textContent.split("—")[0].trim();
-      var vals=[];
-      fig.querySelectorAll(".knob").forEach(function(k){
-        vals.push(k.querySelector("label").textContent.replace(/\s+/g," ").trim());
-      });
-      var st=fig.querySelector("[data-stage]");
-      if(st&&st.getAttribute("data-back")){ vals.push("Tylne płytki: "+st.getAttribute("data-back")); }
-      lines.push(name+": "+vals.join(" · "));
-    });
-    document.querySelectorAll("input[data-gvar]").forEach(function(i){
-      lines.push(i.closest(".knob").querySelector("label").textContent.replace(/\s+/g," ").trim());
-    });
-    if(navigator.clipboard){ navigator.clipboard.writeText(lines.join("\n")); }
-    e.target.textContent="Skopiowane";
-    setTimeout(function(){ e.target.textContent="Skopiuj ustawienia"; },1600);
-  });
-
   if("ResizeObserver" in window){
     var ro=new ResizeObserver(function(){ scenes.forEach(function(sc){ geom(sc); depth(sc); }); });
     scenes.forEach(function(sc){ ro.observe(sc.stage); });

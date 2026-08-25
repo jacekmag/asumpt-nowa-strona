@@ -3,11 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asumpt Vape Shop - Strona Wejściowa</title>
+  <title>Asumpt · Vape Shop Żoliborz · Pl. Wilsona 4, Warszawa</title>
+  <meta name="description" content="Asumpt – sklep z e-papierosami na Żoliborzu, Pl. Wilsona 4, tuż przy metrze Plac Wilsona. Zestawy startowe, liquidy, sole nikotynowe, doradztwo na miejscu. Pn–Pt 11:00–19:00, sob. 11:00–14:00.">
+  <link rel="canonical" href="https://epapierosy-asumpt.pl/">
+  <meta property="og:type" content="business.business">
+  <meta property="og:title" content="Asumpt · Vape Shop Żoliborz · Pl. Wilsona 4, Warszawa">
+  <meta property="og:description" content="Sklep stacjonarny z e-papierosami na Żoliborzu, tuż przy metrze Plac Wilsona. Pn–Pt 11:00–19:00, sobota 11:00–14:00.">
+<meta property="og:image" content="https://epapierosy-asumpt.pl/asumpt-witryna-zoliborz.png">
+  <meta property="og:locale" content="pl_PL">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "@id": "https://epapierosy-asumpt.pl/#localbusiness",
+    "name": "Asumpt e-produkty",
+    "alternateName": "Vape Shop ASUMPT",
+    "url": "https://epapierosy-asumpt.pl/",
+    "description": "Sklep stacjonarny z e-papierosami, zestawami startowymi, liquidami i solami nikotynowymi na Pl. Wilsona 4 w Warszawie.",
+    "image": "https://epapierosy-asumpt.pl/logo-asumpt.png",
+    "logo": "https://epapierosy-asumpt.pl/logo-asumpt.png",
+    "telephone": "+48228398633",
+    "email": "asumpt.sc@gmail.com",
+    "priceRange": "$$",
+    "currenciesAccepted": "PLN",
+    "paymentAccepted": "Cash, Card",
+    "areaServed": "Warszawa, Żoliborz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Plac Wilsona 4",
+      "postalCode": "01-626",
+      "addressLocality": "Warszawa",
+      "addressCountry": "PL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 52.269328,
+      "longitude": 20.985132
+    },
+    "hasMap": "https://www.google.com/maps/place/Vape+Shop+ASUMPT/@52.269328,20.985132,17z",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "11:00",
+        "closes": "19:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "11:00",
+        "closes": "14:00"
+      }
+    ],
+    "sameAs": ["https://www.facebook.com/profile.php?id=100057228949370"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://epapierosy-asumpt.pl/#breadcrumb",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Strona główna","item":"https://epapierosy-asumpt.pl/"}
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Orbitron:wght@600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -108,6 +173,48 @@
       z-index: 3;
       opacity: 0.45;
       mix-blend-mode: screen;
+    }
+
+    /* PLAKIETKA Z TREŚCIĄ DLA GOOGLE I UŻYTKOWNIKA — realny H1/adres/godziny,
+       widoczne od razu, nie chowane trikiem CSS. Stojący w rogu, nie koliduje
+       z klamką (środek) ani z age-gate (środek) ani z enter-prompt (dół). */
+    .entry-sign {
+      position: absolute;
+      top: max(18px, env(safe-area-inset-top, 0px));
+      left: 18px;
+      z-index: 12;
+      max-width: min(280px, 62vw);
+      pointer-events: none;
+    }
+
+    .entry-sign h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: #cbd5e1;
+      margin: 0 0 4px;
+      text-shadow: 0 1px 6px rgba(0,0,0,.8);
+    }
+    .entry-sign h1 b { color: #ef4444; font-weight: 600; }
+
+    .entry-sign p {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      line-height: 1.5;
+      color: #9aa5ad;
+      margin: 0;
+      text-shadow: 0 1px 6px rgba(0,0,0,.8);
+    }
+
+    @media (max-width: 640px) {
+      .entry-sign {
+        max-width: 60vw;
+        top: max(12px, env(safe-area-inset-top, 0px));
+        left: 12px;
+      }
+      .entry-sign h1 { font-size: 0.64rem; }
+      .entry-sign p { font-size: 0.58rem; }
     }
 
     /* PANEL WERYFIKACJI WIEKU */
@@ -389,9 +496,13 @@
 <body>
 
   <div class="viewport-wrapper">
+    <div class="entry-sign">
+      <h1><b>Asumpt</b> · Pl. Wilsona 4, Żoliborz</h1>
+      <p>Tuż przy metrze. Pn–Pt 11:00–19:00, sob. 11:00–14:00.</p>
+    </div>
     <div class="image-panel-wrapper">
       <div class="image-container">
-        <img src="2.png" alt="Witryna sklepu Asumpt Vape" class="shop-image" id="shopImage">
+        <img src="asumpt-witryna-zoliborz.png" alt="Witryna sklepu Asumpt Vape" class="shop-image" id="shopImage">
 
         <div class="door-trigger" id="doorTrigger" onclick="enterStore()">
           <svg viewBox="0 0 24 24">
@@ -420,7 +531,7 @@
   </div>
 
   <script>
-    // Punkt na zdjęciu (2.png), w którym leży klamka drzwi, jako ułamek WŁASNYCH
+    // Punkt na zdjęciu (asumpt-witryna-zoliborz.png), w którym leży klamka drzwi, jako ułamek WŁASNYCH
     // wymiarów obrazu (nie okna). Te same liczby co poprzednie top/left w CSS —
     // różnica jest w tym, względem czego są teraz liczone.
     // Skalibrowane 17.08 na telefonie Jacka (tryb kalibracji w podglądzie-artefakcie).
