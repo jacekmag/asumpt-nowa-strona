@@ -340,56 +340,17 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 /* min-width:0 — bez tego wąska kolumna nie może się skurczyć i plan
    placu jest przycinany, zanim wczytają się fonty z Google */
 .mapbox{min-height:0;min-width:0}
+.mapembed-wrap{position:relative;flex:1;min-height:0}
+.mapembed{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapembed-tint{position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(229,18,10,.4), inset 0 0 40px 8px rgba(16,20,24,.55)}
 .plan{flex:1;width:100%;height:100%;min-height:0;display:block;background:var(--plate)}
-.plan .road{stroke:#37434C;stroke-width:9;stroke-linecap:round;fill:none}
-.plan .roadline{stroke:#141A20;stroke-width:1;fill:none}
-.plan .tick{stroke:#4A5A65;stroke-width:1}
-.plan .tick.maj{stroke:#7C8A93}
-.plan .ring{fill:none;stroke:#5C6E79;stroke-width:1.25}
-.plan .ring2{fill:none;stroke:#2A343C;stroke-width:5}
-.plan .lbl{
-  font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;
-  fill:var(--ink);text-transform:uppercase;
-}
-.plan .lbl.hi{fill:var(--ink)}
-.plan .lbl.dim{fill:var(--muted);font-size:10.5px}
-.plan .pin{fill:var(--red)}
-.plan .pinring{fill:none;stroke:var(--red);stroke-width:1.4}
-.plan .metro{fill:#0F141A;stroke:#5C6E79;stroke-width:1}
-.plan .metroM{font-family:"Saira Condensed",sans-serif;font-weight:700;font-size:15px;fill:var(--ink)}
-
 /* etykiety w pasku danych — czerwone */
 .fact .label{color:var(--red)}
 
 /* odstęp nad sekcjami — .wrap (klasa) wygrywał z selektorem `section`,
    przez co padding-top nigdy nie działał */
 section.wrap{padding-top:34px}
-
-/* wskazówka do sklepu — wyłącznie odcinki proste */
-.plan .arrow{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
-.plan .asumpt{
-  font-family:"Saira Condensed",sans-serif;font-weight:500;font-size:19px;
-  letter-spacing:.10em;fill:var(--ink);text-transform:uppercase;
-}
-
-/* radar: obrót wycinka + rozchodzące się pierścienie */
-.plan .ping{
-  fill:none;stroke:var(--red);stroke-width:1.8;
-  transform-box:fill-box;transform-origin:center;
-  animation:radarPing 3.4s cubic-bezier(.15,.55,.3,1) infinite;
-}
-.plan .ping.p2{animation-delay:1.13s}
-.plan .ping.p3{animation-delay:2.26s}
-@keyframes radarPing{
-  0%  {transform:scale(.35);opacity:1}
-  65% {transform:scale(3.4);opacity:0}
-  100%{transform:scale(3.4);opacity:0}
-}
-@media (prefers-reduced-motion:reduce){
-  .plan .ping{animation:none;opacity:.45;transform:scale(1.5)}
-  .plan .ping.p2,.plan .ping.p3{display:none}
-  .plan .radar{display:none}
-}
 
 /* powrót do góry */
 .back-to-top{
@@ -429,104 +390,10 @@ section.wrap{padding-top:34px}
     </figure>
 
     <div class="mapbox">
-<svg class="plan" viewBox="0 0 500 470" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Schemat Placu Wilsona: sklep Asumpt pod numerem 4, tuż przy wyjściu ze stacji metra">
-<defs><radialGradient id="sweepGrad"><stop offset="0%" stop-color="#E5120A" stop-opacity=".50"/><stop offset="100%" stop-color="#E5120A" stop-opacity="0"/></radialGradient></defs>
-<g><path class="road" d="M250 0 V 112"/><path class="road" d="M250 470 V 352"/>
-<path class="road" d="M0 232 H 130"/><path class="road" d="M500 232 H 370"/></g>
-<circle class="ring2" cx="250" cy="232" r="120"/>
-<circle class="ring" cx="250" cy="232" r="120"/>
-<circle class="ring" cx="250" cy="232" r="109" style="stroke:#2F3A43"/>
-<line class="tick maj" x1="250.0" y1="108.0" x2="250.0" y2="99.0"/>
-<line class="tick" x1="260.8" y1="108.5" x2="261.1" y2="105.5"/>
-<line class="tick" x1="271.5" y1="109.9" x2="272.1" y2="106.9"/>
-<line class="tick" x1="282.1" y1="112.2" x2="282.9" y2="109.3"/>
-<line class="tick" x1="292.4" y1="115.5" x2="293.4" y2="112.7"/>
-<line class="tick" x1="302.4" y1="119.6" x2="303.7" y2="116.9"/>
-<line class="tick maj" x1="312.0" y1="124.6" x2="316.5" y2="116.8"/>
-<line class="tick" x1="321.1" y1="130.4" x2="322.8" y2="128.0"/>
-<line class="tick" x1="329.7" y1="137.0" x2="331.6" y2="134.7"/>
-<line class="tick" x1="337.7" y1="144.3" x2="339.8" y2="142.2"/>
-<line class="tick" x1="345.0" y1="152.3" x2="347.3" y2="150.4"/>
-<line class="tick" x1="351.6" y1="160.9" x2="354.0" y2="159.2"/>
-<line class="tick maj" x1="357.4" y1="170.0" x2="365.2" y2="165.5"/>
-<line class="tick" x1="362.4" y1="179.6" x2="365.1" y2="178.3"/>
-<line class="tick" x1="366.5" y1="189.6" x2="369.3" y2="188.6"/>
-<line class="tick" x1="369.8" y1="199.9" x2="372.7" y2="199.1"/>
-<line class="tick" x1="372.1" y1="210.5" x2="375.1" y2="209.9"/>
-<line class="tick" x1="373.5" y1="221.2" x2="376.5" y2="220.9"/>
-<line class="tick maj" x1="374.0" y1="232.0" x2="383.0" y2="232.0"/>
-<line class="tick" x1="373.5" y1="242.8" x2="376.5" y2="243.1"/>
-<line class="tick" x1="372.1" y1="253.5" x2="375.1" y2="254.1"/>
-<line class="tick" x1="369.8" y1="264.1" x2="372.7" y2="264.9"/>
-<line class="tick" x1="366.5" y1="274.4" x2="369.3" y2="275.4"/>
-<line class="tick" x1="362.4" y1="284.4" x2="365.1" y2="285.7"/>
-<line class="tick maj" x1="357.4" y1="294.0" x2="365.2" y2="298.5"/>
-<line class="tick" x1="351.6" y1="303.1" x2="354.0" y2="304.8"/>
-<line class="tick" x1="345.0" y1="311.7" x2="347.3" y2="313.6"/>
-<line class="tick" x1="337.7" y1="319.7" x2="339.8" y2="321.8"/>
-<line class="tick" x1="329.7" y1="327.0" x2="331.6" y2="329.3"/>
-<line class="tick" x1="321.1" y1="333.6" x2="322.8" y2="336.0"/>
-<line class="tick maj" x1="312.0" y1="339.4" x2="316.5" y2="347.2"/>
-<line class="tick" x1="302.4" y1="344.4" x2="303.7" y2="347.1"/>
-<line class="tick" x1="292.4" y1="348.5" x2="293.4" y2="351.3"/>
-<line class="tick" x1="282.1" y1="351.8" x2="282.9" y2="354.7"/>
-<line class="tick" x1="271.5" y1="354.1" x2="272.1" y2="357.1"/>
-<line class="tick" x1="260.8" y1="355.5" x2="261.1" y2="358.5"/>
-<line class="tick maj" x1="250.0" y1="356.0" x2="250.0" y2="365.0"/>
-<line class="tick" x1="239.2" y1="355.5" x2="238.9" y2="358.5"/>
-<line class="tick" x1="228.5" y1="354.1" x2="227.9" y2="357.1"/>
-<line class="tick" x1="217.9" y1="351.8" x2="217.1" y2="354.7"/>
-<line class="tick" x1="207.6" y1="348.5" x2="206.6" y2="351.3"/>
-<line class="tick" x1="197.6" y1="344.4" x2="196.3" y2="347.1"/>
-<line class="tick maj" x1="188.0" y1="339.4" x2="183.5" y2="347.2"/>
-<line class="tick" x1="178.9" y1="333.6" x2="177.2" y2="336.0"/>
-<line class="tick" x1="170.3" y1="327.0" x2="168.4" y2="329.3"/>
-<line class="tick" x1="162.3" y1="319.7" x2="160.2" y2="321.8"/>
-<line class="tick" x1="155.0" y1="311.7" x2="152.7" y2="313.6"/>
-<line class="tick" x1="148.4" y1="303.1" x2="146.0" y2="304.8"/>
-<line class="tick maj" x1="142.6" y1="294.0" x2="134.8" y2="298.5"/>
-<line class="tick" x1="137.6" y1="284.4" x2="134.9" y2="285.7"/>
-<line class="tick" x1="133.5" y1="274.4" x2="130.7" y2="275.4"/>
-<line class="tick" x1="130.2" y1="264.1" x2="127.3" y2="264.9"/>
-<line class="tick" x1="127.9" y1="253.5" x2="124.9" y2="254.1"/>
-<line class="tick" x1="126.5" y1="242.8" x2="123.5" y2="243.1"/>
-<line class="tick maj" x1="126.0" y1="232.0" x2="117.0" y2="232.0"/>
-<line class="tick" x1="126.5" y1="221.2" x2="123.5" y2="220.9"/>
-<line class="tick" x1="127.9" y1="210.5" x2="124.9" y2="209.9"/>
-<line class="tick" x1="130.2" y1="199.9" x2="127.3" y2="199.1"/>
-<line class="tick" x1="133.5" y1="189.6" x2="130.7" y2="188.6"/>
-<line class="tick" x1="137.6" y1="179.6" x2="134.9" y2="178.3"/>
-<line class="tick maj" x1="142.6" y1="170.0" x2="134.8" y2="165.5"/>
-<line class="tick" x1="148.4" y1="160.9" x2="146.0" y2="159.2"/>
-<line class="tick" x1="155.0" y1="152.3" x2="152.7" y2="150.4"/>
-<line class="tick" x1="162.3" y1="144.3" x2="160.2" y2="142.2"/>
-<line class="tick" x1="170.3" y1="137.0" x2="168.4" y2="134.7"/>
-<line class="tick" x1="178.9" y1="130.4" x2="177.2" y2="128.0"/>
-<line class="tick maj" x1="188.0" y1="124.6" x2="183.5" y2="116.8"/>
-<line class="tick" x1="197.6" y1="119.6" x2="196.3" y2="116.9"/>
-<line class="tick" x1="207.6" y1="115.5" x2="206.6" y2="112.7"/>
-<line class="tick" x1="217.9" y1="112.2" x2="217.1" y2="109.3"/>
-<line class="tick" x1="228.5" y1="109.9" x2="227.9" y2="106.9"/>
-<line class="tick" x1="239.2" y1="108.5" x2="238.9" y2="105.5"/>
-<path class="roadline" style="stroke:#6B7C87;stroke-dasharray:3 4" d="M250 14 V 456"/>
-<rect class="metro" x="231" y="202" width="38" height="38" rx="4"/>
-<text class="metroM" x="250" y="229" text-anchor="middle">M</text>
-<text class="lbl hi" x="250" y="262" text-anchor="middle">M1 · Plac Wilsona</text>
-<g class="radar" transform="translate(281.1,116.1)"><g><path d="M0 0 L0 -38 A38 38 0 0 1 27 -27 Z" fill="url(#sweepGrad)"/><animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="3.4s" repeatCount="indefinite"/></g></g>
-<circle class="ping p1" cx="281.1" cy="116.1" r="7"/>
-<circle class="ping p2" cx="281.1" cy="116.1" r="7"/>
-<circle class="ping p3" cx="281.1" cy="116.1" r="7"/>
-<circle class="pin" cx="281.1" cy="116.1" r="5.5"/>
-<path class="arrow" d="M286.1 111.1 L 312 90 H 418"/>
-<text class="asumpt" x="316" y="80">ASUMPT</text>
-<text class="lbl" x="264" y="36">Słowackiego</text>
-<text class="lbl" x="264" y="450">Mickiewicza</text>
-<text class="lbl" x="14" y="218">Krasińskiego</text>
-<text class="lbl" x="486" y="218" text-anchor="end">Krasińskiego</text>
-<text class="lbl dim" transform="translate(237,414) rotate(-90)" text-anchor="middle">oś tramwajowa</text>
-<g transform="translate(468,46)"><line class="tick maj" x1="0" y1="18" x2="0" y2="-11"/><path class="pin" d="M0 -18 L5 -6 L0 -9.5 L-5 -6 Z"/><text class="lbl hi" x="0" y="34" text-anchor="middle">N</text></g>
-<g transform="translate(24,438)"><line class="tick maj" x1="0" y1="0" x2="62" y2="0"/><line class="tick maj" x1="0" y1="-4" x2="0" y2="4"/><line class="tick maj" x1="62" y1="-4" x2="62" y2="4"/><text class="lbl dim" x="0" y="-9">ok. 50 m</text></g>
-</svg>
+<div class="plan mapembed-wrap">
+  <iframe class="mapembed" src="https://maps.google.com/maps?q=Vape+Shop+ASUMPT,+Plac+Wilsona+4,+Warszawa&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa: Asumpt, Pl. Wilsona 4, Warszawa"></iframe>
+  <div class="mapembed-tint" aria-hidden="true"></div>
+</div>
       <div class="mapbar">
         <span>Metro Plac Wilsona · tuż przy wyjściu</span>
         <a href="https://www.google.com/maps/place/Vape+Shop+ASUMPT/@52.269328,20.985132,17z" target="_blank" rel="noopener">Otwórz w Mapach</a>
