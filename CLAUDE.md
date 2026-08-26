@@ -39,6 +39,25 @@ Przebudowa strony sklepu Asumpt (Pl. Wilsona 4, Warszawa Żoliborz).
   i zamknięte. Nie audytować ponownie.
 - Nazwy plików podstron są zaszyte w karuzeli — nie zmieniać.
 
+## Infrastruktura
+
+- **GitHub `vape-asumpt.pl`** (to repo, dawniej `asumpt-nowa-strona`, prywatne) —
+  branch `main`, stąd leci deploy.
+- **GitHub `wizytowka-sklepu-asumpt`** (prywatne) — inna, starsza strona: sklep
+  z bateriami/zegarkami/paskami pod tym samym adresem (Pl. Wilsona 4). Domena
+  `asumpt.waw.pl`. Osobny biznes, osobny kod, nie mylić z tym repo.
+- **GitHub `epapierosy-asumpt.pl`** — żywy sklep e-papierosowy, tylko odczyt
+  (patrz „Czego nie ruszać" wyżej).
+- **Netlify**, zespół „jacekmag's team" — trzy projekty, każdy „Deploys from
+  GitHub" 1:1 z repo powyżej: `vape-asumpt.pl`, `asumpt.waw.pl`,
+  `epapierosy-asumpt.pl`. Push na `main` w danym repo = automatyczny redeploy.
+- **DNS `vape-asumpt.pl`** — nameservery wskazują na Netlify DNS
+  (`dns1–4.p09.nsone.net`), ustawione przez INTEN na prośbę Krisa. Nowe rekordy
+  (np. TXT do weryfikacji Google) dodaje się w Netlify → DNS, nie u rejestratora.
+- **Google Search Console** — usługa `vape-asumpt.pl` dodana i zweryfikowana
+  metodą DNS TXT, sitemap.xml przesłana, strona główna zaindeksowana
+  (sierpień 2026).
+
 ## Wzorzec: strona Kontakt
 
 `02-wnetrze-sklepu/kontakt.html` jest stroną wzorcową. Kolory, czcionki,
