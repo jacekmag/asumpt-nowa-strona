@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://epapierosy-asumpt.pl/sitemap.xml
+Sitemap: https://vape-asumpt.pl/sitemap.xml
