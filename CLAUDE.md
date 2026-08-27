@@ -94,6 +94,9 @@ odstępy i sposób budowania grafik biorą się z niej, nie wymyślamy od nowa.
     .door    lista jak na drzwiach: numer po lewej, cienkie kreski
     .faq     details/summary, "+" i "–" czerwone
     .routes  siatka kafelków z czerwoną plakietką u góry
+    .navbar  nawigacja pod logo: na desktopie (>820px) pozioma lista linków,
+             na telefonie zwijana przez <details> (+/– jak w .faq) — dwie
+             osobne listy sterowane media query, bez JS, bez ryzyka kolizji
 
 ### Grafiki wektorowe (plan placu jako wzór)
     - Wyłącznie linie proste: poziome, pionowe, skosy. Żadnych łuków

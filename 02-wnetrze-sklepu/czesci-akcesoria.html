@@ -12,6 +12,7 @@
 <meta property="og:image" content="https://vape-asumpt.pl/asumpt-witryna-zoliborz.png">
 <meta property="og:locale" content="pl_PL">
 
+<link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;500;700&family=Literata:opsz,wght@7..72,300;7..72,400;7..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -100,49 +101,6 @@
 }
 </script>
 <style>
-:root{
-  --ground:#101418;
-  --plate:#171D23;
-  --plate-2:#1D242B;
-  --line:#28323A;
-  --line-soft:#202830;
-  --ink:#F2F4F5;
-  --ink-2:#AEBAC1;
-  --muted:#7C8A93;
-  --titan:#93A0A8;
-  --red:#E5120A;
-  --lamp:#F0B266;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{
-  margin:0;background:var(--ground);color:var(--ink);
-  font-family:"Literata",Georgia,serif;font-weight:300;font-size:17px;line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:1000px;margin:0 auto;padding:0 26px}
-.narrow{max-width:66ch}
-
-/* ---------- szyld ---------- */
-.sign{
-  display:inline-flex;align-items:center;gap:14px;
-  background:#0B0F13;border:1px solid var(--line);
-  padding:11px 20px;border-radius:2px;
-  font-family:"Saira Condensed",Impact,sans-serif;font-weight:500;
-  text-transform:uppercase;letter-spacing:.06em;font-size:15px;color:var(--ink);
-}
-.sign i{width:6px;height:6px;border-radius:50%;background:var(--red);flex:none;font-style:normal}
-
-/* ---------- nagłówek strony ---------- */
-.top{padding:52px 26px 0;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
-.logo{width:min(370px,66vw);height:auto;display:block}
-.tel{
-  font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--ink);
-  text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:3px;
-  font-variant-numeric:tabular-nums;
-}
-.tel:hover,.tel:focus-visible{color:var(--red);outline:none}
 
 .hero{padding:44px 26px 42px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .eyebrow{
@@ -181,7 +139,6 @@ a.inl:hover,a.inl:focus-visible{border-color:var(--red);color:var(--red);outline
 
 /* ---------- sekcje ---------- */
 section{padding:34px 0 0}
-section.wrap{padding-top:34px}
 .shead{display:flex;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap}
 .snum{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;color:var(--red)}
 .step{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
@@ -275,35 +232,42 @@ h2{
 }
 .cta a:hover,.cta a:focus-visible{border-color:var(--red);color:var(--red);outline:none}
 
-/* stopka */
-footer{border-top:1px solid var(--line)}
-footer.wrap{margin-top:84px;padding:34px 26px 90px}
-.flinks{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 22px;padding:0;list-style:none}
-.flinks a{
-  font-family:"Saira Condensed",sans-serif;font-weight:500;text-transform:uppercase;
-  font-size:14px;letter-spacing:.08em;color:var(--ink-2);text-decoration:none;
-}
-.flinks a:hover,.flinks a:focus-visible{color:var(--red);outline:none}
-.fnote{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:0}
-
-/* powrót do góry */
-.back-to-top{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  width:max-content;margin:40px auto 0;
-  background:#0B0F13;border:1px solid var(--red);border-radius:2px;
-  padding:14px 30px;
-  font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--ink-2);text-decoration:none;
-  transition:background .2s,border-color .2s,color .2s;
-}
-.back-to-top span{color:var(--red);font-size:13px}
-.back-to-top:hover,.back-to-top:focus-visible{background:rgba(229,18,10,.12);color:var(--ink);outline:none}
 </style>
 </head>
 <body>
 <div class="wrap top">
   <img class="logo" alt="asumpt e-produkty" src="../logo-asumpt.png">
   <a class="tel" href="tel:+48228398633">22 839 86 33</a>
+</div>
+
+<div class="navbar">
+  <nav class="navbar-desktop wrap" aria-label="Nawigacja główna">
+    <ul>
+      <li><a href="index.html">Przedsionek</a></li>
+      <li><a href="dobor-sprzetu.html">Dobór sprzętu</a></li>
+      <li><a href="zestawy.html">Zestawy</a></li>
+      <li><a href="liquidy.html">Liquidy</a></li>
+      <li><a href="sole.html">Sole</a></li>
+      <li><a href="czesci-akcesoria.html" aria-current="page">Części i akcesoria</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="o-nas.html">O nas</a></li>
+    </ul>
+  </nav>
+  <details class="navbar-mobile">
+    <summary>Menu</summary>
+    <nav aria-label="Nawigacja główna">
+      <ul>
+        <li><a href="index.html">Przedsionek</a></li>
+        <li><a href="dobor-sprzetu.html">Dobór sprzętu</a></li>
+        <li><a href="zestawy.html">Zestawy</a></li>
+        <li><a href="liquidy.html">Liquidy</a></li>
+        <li><a href="sole.html">Sole</a></li>
+        <li><a href="czesci-akcesoria.html" aria-current="page">Części i akcesoria</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="o-nas.html">O nas</a></li>
+      </ul>
+    </nav>
+  </details>
 </div>
 
 <div class="wrap hero">
@@ -471,16 +435,6 @@ footer.wrap{margin-top:84px;padding:34px 26px 90px}
 </div>
 
 <footer class="wrap">
-  <ul class="flinks">
-    <li><a href="index.html">Przedsionek</a></li>
-    <li><a href="dobor-sprzetu.html">Dobór sprzętu</a></li>
-    <li><a href="zestawy.html">Zestawy</a></li>
-    <li><a href="liquidy.html">Liquidy</a></li>
-    <li><a href="sole.html">Sole</a></li>
-    <li><a href="czesci-akcesoria.html" aria-current="page">Części i akcesoria</a></li>
-    <li><a href="kontakt.html">Kontakt</a></li>
-    <li><a href="o-nas.html">O nas</a></li>
-  </ul>
   <p class="fnote">Asumpt s.c. · Pl. Wilsona 4, 01-626 Warszawa · 22 839 86 33 · Oferta dotyczy wyłącznie sklepu stacjonarnego · Tylko dla osób pełnoletnich 18+</p>
 </footer>
 <div class="wrap" style="text-align:center;padding-bottom:60px">

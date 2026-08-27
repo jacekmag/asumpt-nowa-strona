@@ -1,0 +1,107 @@
+/* Wspólny system: zmienne, bazowa typografia i powtarzalne elementy
+   (nagłówek, nawigacja, stopka) dla wszystkich podstron 02-wnetrze-sklepu/.
+   Wzorzec: kontakt.html — patrz CLAUDE.md. */
+
+:root{
+  --ground:#101418;
+  --plate:#171D23;
+  --plate-2:#1D242B;
+  --line:#28323A;
+  --line-soft:#202830;
+  --ink:#F2F4F5;
+  --ink-2:#AEBAC1;
+  --muted:#7C8A93;
+  --titan:#93A0A8;
+  --red:#E5120A;
+  --lamp:#F0B266;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Literata",Georgia,serif;font-weight:300;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 26px}
+.narrow{max-width:66ch}
+
+/* ---------- szyld: element przewodni ---------- */
+.sign{
+  display:inline-flex;align-items:center;gap:14px;
+  background:#0B0F13;border:1px solid var(--line);
+  padding:11px 20px;border-radius:2px;
+  font-family:"Saira Condensed",Impact,sans-serif;font-weight:500;
+  text-transform:uppercase;letter-spacing:.06em;font-size:15px;color:var(--ink);
+}
+.sign i{width:6px;height:6px;border-radius:50%;background:var(--red);flex:none;font-style:normal}
+
+/* ---------- nagłówek strony ---------- */
+.top{padding:52px 26px 0;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.logo{width:min(370px,66vw);height:auto;display:block}
+.tel{
+  font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--ink);
+  text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:3px;
+  font-variant-numeric:tabular-nums;
+}
+.tel:hover,.tel:focus-visible{color:var(--red);outline:none}
+
+/* ---------- nawigacja: wersja na desktop (>820px) i osobna, zwijana na telefon ---------- */
+.navbar{border-bottom:1px solid var(--line)}
+.navbar-desktop{display:none}
+.navbar-desktop ul{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 30px;
+  list-style:none;margin:0;padding:15px 0;
+}
+.navbar-desktop a{
+  font-family:"Saira Condensed",sans-serif;font-weight:500;text-transform:uppercase;
+  font-size:14px;letter-spacing:.06em;color:var(--ink-2);text-decoration:none;
+  padding:3px 0;border-bottom:1px solid transparent;
+}
+.navbar-desktop a:hover,.navbar-desktop a:focus-visible{color:var(--ink);outline:none}
+.navbar-desktop a[aria-current="page"]{color:var(--red);border-bottom-color:var(--red)}
+
+.navbar-mobile summary{
+  cursor:pointer;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 26px;
+  font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);
+}
+.navbar-mobile summary::-webkit-details-marker{display:none}
+.navbar-mobile summary::after{content:"+";color:var(--red);font-family:"IBM Plex Mono",monospace;font-size:18px}
+.navbar-mobile[open] summary::after{content:"–"}
+.navbar-mobile ul{list-style:none;margin:0;padding:0 0 6px}
+.navbar-mobile li{border-top:1px solid var(--line-soft)}
+.navbar-mobile a{
+  display:block;padding:14px 26px;
+  font-family:"Saira Condensed",sans-serif;font-weight:500;text-transform:uppercase;
+  font-size:16px;letter-spacing:.03em;color:var(--ink-2);text-decoration:none;
+}
+.navbar-mobile a[aria-current="page"]{color:var(--red);background:rgba(229,18,10,.06)}
+
+@media (min-width:821px){
+  .navbar-desktop{display:block}
+  .navbar-mobile{display:none}
+}
+
+/* odstęp nad sekcjami — .wrap (klasa) wygrywał z selektorem `section`,
+   przez co padding-top nigdy nie działał */
+section.wrap{padding-top:34px}
+
+/* powrót do góry */
+.back-to-top{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:max-content;margin:40px auto 0;
+  background:#0B0F13;border:1px solid var(--red);border-radius:2px;
+  padding:14px 30px;
+  font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink-2);text-decoration:none;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.back-to-top span{color:var(--red);font-size:13px}
+.back-to-top:hover,.back-to-top:focus-visible{background:rgba(229,18,10,.12);color:var(--ink);outline:none}
+
+/* stopka */
+footer{border-top:1px solid var(--line)}
+footer.wrap{margin-top:84px;padding:34px 26px 90px}
+.fnote{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:0}
