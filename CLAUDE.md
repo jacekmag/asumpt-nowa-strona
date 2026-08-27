@@ -115,5 +115,12 @@ odstępy i sposób budowania grafik biorą się z niej, nie wymyślamy od nowa.
     - Jeden świat, ciemny. Bez trybu jasnego.
     - Zasoby jako osobne pliki w katalogu głównym, nie osadzane w data:.
     - Dane strukturalne na każdej stronie: LocalBusiness/Store, FAQPage
-      i BreadcrumbList.
+      i BreadcrumbList. Pełna encja firmy (adres, godziny, geo, sameAs)
+      istnieje tylko w index.html pod @id #localbusiness — inne strony mają
+      krótki odnośnik {"@id": "..."}, nie kopię całości.
+    - Fonty (Saira Condensed, Literata, IBM Plex Mono) self-hosted w
+      /fonts/ jako .woff2, wpięte przez @font-face w style.css — nie
+      wracać do linków fonts.googleapis.com.
+    - Favicon (favicon.ico, favicon-32.png, favicon-192.png,
+      apple-touch-icon.png) w katalogu głównym, wzięty z wąsów w logo.
     - Po każdej zmianie sprawdzić stronę na 1280 i 390 px.
