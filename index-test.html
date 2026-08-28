@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEST SIATKI · Asumpt</title>
+<link rel="icon" href="../favicon.ico" sizes="any">
+
+<style>
+  :root { 
+    --ground: #04060a; 
+    --ink: #e8e6e1; 
+    --ink-2: #a2a8ae; 
+    --mono: "Cascadia Mono", Consolas, monospace;
+    --neon: #e5120a; 
+    --neon-w: #dcdce4;
+    --disp: "Sitka Heading", Georgia, serif; 
+  }  
+
+  * { box-sizing: border-box; }  
+  
+  body { 
+    background-color: var(--ground);
+    /* Podpięcie Twojego pliku SVG jako tła */
+    background-image: url("tapeta-karuzela.svg"); 
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--ink); 
+    font-family: var(--body); 
+    margin: 0; 
+    padding: 0; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }  
+
+  .real-sign {
+    padding: 15px 16px 5px 16px;
+    text-align: center;
+  }
+  .real-sign h1 {
+    margin: 0;
+    font-family: var(--mono);
+    font-weight: 400;    
+    font-size: 0.8rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }  
+  .real-sign h1 b { color: #ef4444; }  
+
+  .main-container {
+    width: 100%;
+    max-width: 850px;
+    padding: 10px 16px 30px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .brandmark-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+  .brandmark { 
+    display: block; 
+    width: 200px;    
+    aspect-ratio: 900/352; 
+    background: linear-gradient(180deg, var(--neon) 0 75%, var(--neon-w) 75% 100%);
+    -webkit-mask: url("../logo-asumpt.png") center/contain no-repeat; 
+    mask: url("../logo-asumpt.png") center/contain no-repeat;    
+    filter: drop-shadow(0 0 5px rgba(229,18,10,.5));
+  }  
+
+  /* SIATKA KAFELKÓW (2x3 na telefonie, 3x2 na komputerze) */
+  .grid-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (min-width: 640px) {
+    .grid-categories {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+  }
+
+  /* KAFELEK: Dopasowany pod podświetlaną tapetę */
+  .grid-card {
+    position: relative;
+    aspect-ratio: 1.45;
+    border-radius: 6px;
+    
+    /* 40% krycia + szklany połysk z góry */
+    background: 
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(0, 0, 0, 0.35) 100%),
+      rgba(8, 12, 18, 0.40);
+
+    border: 1px solid rgba(147, 160, 168, 0.25);
+    
+    /* Rozmycie przepuszczające czerwone linie w tle */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8%;
+    padding: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .grid-card:hover, .grid-card:focus-visible {
+    background: 
+      linear-gradient(135deg, rgba(229, 18, 10, 0.15) 0%, rgba(0, 0, 0, 0.5) 100%),
+      rgba(12, 16, 22, 0.65);
+    border-color: rgba(229, 18, 10, 0.8);
+    box-shadow: 0 0 15px rgba(229, 18, 10, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .p-icon { 
+    width: 30%; 
+    max-width: 42px; 
+    aspect-ratio: 1; 
+    display: block; 
+    color: var(--neon-w); 
+    opacity: .9;
+  }  
+  .p-icon svg { width: 100%; height: 100%; display: block; }  
+
+  .p-name { 
+    font-family: var(--disp); 
+    font-weight: 600; 
+    font-size: clamp(12px, 3vw, 16px); 
+    text-transform: uppercase; 
+    color: #F2F4F5; 
+    text-align: center; 
+    text-shadow: 0 1px 6px rgba(0,0,0,0.9); 
+  }
+
+  /* KAFELEK "O NAS" NA DOLE */
+  .about-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(148deg, rgba(255,255,255,.05) 0%, rgba(0,0,0,.3) 100%), rgba(8, 12, 18, 0.45);
+    border: 1px solid rgba(229,18,10,.35);
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 14px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+  }
+
+  .about-card:hover {
+    border-color: var(--neon);
+    box-shadow: 0 0 15px rgba(229,18,10,.3);
+  }
+
+  .about-card .cta { 
+    font-family: var(--mono); 
+    font-weight: 700; 
+    font-size: clamp(11px, 1.5vw, 14px); 
+    letter-spacing: .2em;    
+    text-transform: uppercase; 
+    color: var(--neon); 
+  }  
+
+  .about-card .sub { 
+    font-family: var(--mono); 
+    font-size: clamp(9px, 1.1vw, 11px); 
+    letter-spacing: .15em;    
+    text-transform: uppercase; 
+    color: var(--ink-2); 
+  }
+</style>
+</head>
+<body>
+
+<div class="real-sign">  
+  <h1><b>Asumpt</b> · Pl. Wilsona 4, Żoliborz</h1>
+</div>
+
+<div class="main-container">
+  
+  <div class="brandmark-container">
+    <div class="brandmark" role="img" aria-label="Asumpt e-produkty"></div>
+  </div>
+
+  <main class="grid-categories">
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.1 15.1L20 20"/><path d="M8 10.5h5"/><path d="M10.5 8v5"/></svg>
+      </span>
+      <span class="p-name">Dobór sprzętu</span>
+    </a>
+
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="8" y="3.5" width="8" height="17" rx="2.6"/><path d="M10.6 3.5V2.2h2.8v1.3"/><path d="M9.6 9h4.8"/><path d="M9.6 12.2h4.8"/></svg>
+      </span>
+      <span class="p-name">Zestawy</span>
+    </a>
+
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10.2 2.6h3.6v3.3l2.1 2.7v10.8a2 2 0 0 1-2 2H10.1a2 2 0 0 1-2-2V8.6l2.1-2.7V2.6z"/><path d="M8.1 13.2h7.8"/></svg>
+      </span>
+      <span class="p-name">Liquidy</span>
+    </a>
+
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.2c0 0 5.4 5.7 5.4 9.4a5.4 5.4 0 1 1-10.8 0C6.6 8.9 12 3.2 12 3.2z"/><path d="M12 10.6l1.7 2-1.7 2-1.7-2z"/></svg>
+      </span>
+      <span class="p-name">Sole</span>
+    </a>
+
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="12" cy="7.4" rx="5.2" ry="1.9"/><ellipse cx="12" cy="12" rx="5.2" ry="1.9"/><ellipse cx="12" cy="16.6" rx="5.2" ry="1.9"/><path d="M6.8 7.4v9.2"/><path d="M17.2 7.4v9.2"/></svg>
+      </span>
+      <span class="p-name">Części</span>
+    </a>
+
+    <a href="#" class="grid-card">
+      <span class="p-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21.2s7-6.4 7-11.2a7 7 0 1 0-14 0c0 4.8 7 11.2 7 11.2z"/><circle cx="12" cy="9.8" r="2.7"/></svg>
+      </span>
+      <span class="p-name">Kontakt</span>
+    </a>
+
+    <a href="o-nas.html" class="about-card">
+      <span class="cta">Poznaj nas →</span>
+      <span class="sub">Działamy od 1990 r. · Plac Wilsona 4</span>
+    </a>
+  </main>
+</div>
+
+</body>
+</html>
