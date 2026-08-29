@@ -35,914 +35,236 @@
 </script>
 
 <style>
-  :root { --ground:#15171a; --line:#2b3036; --line-soft:#23272c; --ink:#e8e6e1; --ink-2:#a2a8ae; --ink-3:#6d747b;
-    --body:"Segoe UI",system-ui,-apple-system,sans-serif; --mono:"Cascadia Mono",Consolas,"SF Mono",monospace }
-  * { box-sizing:border-box }
-  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased }
-  .wrap { max-width:none; margin:0 auto; padding:0 }
-  html, body { background:#04060a; margin:0; overflow:hidden }
-  .sheet { padding:0; gap:0 }
-  .stage { border:0 }
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Saira Condensed";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/saira-condensed-500-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Saira Condensed";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/saira-condensed-500-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
-  .stage { position:relative; aspect-ratio:16/9; border:1px solid var(--line); overflow:hidden; isolation:isolate; touch-action:pan-y;
-    --dark:.62; --darkr:40; --lines:0; --bgy:100; --edgeint:1; --radar:.5; --tempo:0; --rise:3000;
-    /* jeden swiat: plytki w tytanie, przednia w czerwieni. Kategorie rozroznia
-       ikona i nazwa, nie kolor - czerwien zostaje jedynym akcentem. */
-    --titan:#93A0A8; --tint-front:#E5120A;
-    /* kolory szyldu, odpipetowane z asumpt-witryna-zoliborz.webp: czerwony neon "asumpt" i biale "e-produkty" */
-    --neon:#e5120a; --neon-hot:#fd180b; --neon-w:#dcdce4;
-    --disp:"Sitka Heading",Constantia,Georgia,serif; background:#04060a }
-  @media (max-width:640px){ .stage{aspect-ratio:3/4} }
+:root{
+  --ground:#101418; --ground-2:#0a0d10; --plate:#171D23;
+  --line:#28323A; --line-soft:#202830;
+  --ink:#F2F4F5; --ink-2:#AEBAC1; --muted:#7C8A93; --red:#E5120A;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:"IBM Plex Mono",monospace;color:var(--ink);
+  background:radial-gradient(ellipse 900px 480px at 50% -12%, rgba(147,160,168,.10), transparent 62%), var(--ground-2);
+}
 
-  .bgimg { position:absolute; inset:0; z-index:0; background-repeat:no-repeat; background-size:cover;
-    background-position:50% calc(var(--bgy) * 1%) }
+.scene{position:relative;max-width:460px;margin:0 auto;padding:24px 16px 20px}
 
-  .seams,.ribs { position:absolute; inset:0; z-index:3; opacity:calc(var(--lines) * 1.05) }
-  .seam { position:absolute; top:-6%; bottom:-6%; width:1px; background:linear-gradient(180deg,transparent,rgba(210,226,255,.18) 14%,rgba(210,226,255,.08) 52%,rgba(210,226,255,.02) 78%,transparent) }
-  .rib { position:absolute; left:50%; transform:translateX(-50%); border-radius:50%; border-top:1px solid rgba(200,220,255,var(--ro,.12));
-    box-shadow:0 1px 0 rgba(0,0,0,.55), 0 0 14px -4px rgba(150,190,255,calc(var(--ro,.12)*1.6)) }
+.panel-ticks{
+  position:absolute;left:50%;top:-52px;width:520px;height:520px;transform:translateX(-50%);
+  border-radius:50%;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg, rgba(174,186,193,.06) 0deg 1.1deg, transparent 1.1deg 6deg);
+  -webkit-mask:radial-gradient(circle, #000 52%, transparent 76%);
+          mask:radial-gradient(circle, #000 52%, transparent 76%);
+}
+.panel-beam{
+  position:absolute;left:50%;top:-52px;width:520px;height:520px;transform:translateX(-50%);
+  border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+  background:conic-gradient(from 0deg, rgba(229,18,10,.15), transparent 16deg 344deg, rgba(229,18,10,.15));
+  animation:sweep 11s linear infinite;
+}
+@keyframes sweep{to{transform:translateX(-50%) rotate(360deg)}}
 
-  /* przyciemnienie ze sterowanym zasiegiem */
-  .core { position:absolute; inset:0; z-index:4; pointer-events:none;
-    background:radial-gradient(calc(var(--darkr) * 1%) calc(var(--darkr) * 1.17%) at 50% 50%,
-      rgba(2,4,7,calc(var(--dark)*.96)) 0%, rgba(2,4,7,calc(var(--dark)*.82)) 42%,
-      rgba(2,4,7,calc(var(--dark)*.44)) 66%, transparent 84%) }
+.brand{position:relative;text-align:center;margin:2px 0 14px}
+.brand img{
+  height:58px;width:auto;
+  filter:drop-shadow(0 0 10px rgba(229,18,10,.4)) drop-shadow(0 0 22px rgba(229,18,10,.18));
+}
 
-  .field { position:absolute; inset:0; z-index:20; perspective:1100px; cursor:grab }
-  .field.dragging { cursor:grabbing }
-  .ring { position:absolute; left:50%; top:50%; width:0; height:0; transform-style:preserve-3d; transform:translate(-50%,-50%) rotateY(calc(var(--ring,0)*1deg)) }
-  .cell { position:absolute; left:50%; top:50%; width:var(--pw,320px); margin-left:calc(var(--pw,320px)/-2); margin-top:calc(var(--pw,320px)/-3.8);
-    transform:rotateY(calc(var(--a)*1deg)) translateZ(var(--radius,380px)); transform-style:preserve-3d }
-  .breath { position:relative; width:100%; display:block }
-  /* 6.1 — tylne plytki. Tryb ustawiany atrybutem data-back na .stage.
-     flip: zawartosc obrocona o 180deg, przelaczana dokladnie gdy plytka stoi kantem do kamery (niewidoczne)
-     hide: tyl plytki znika
-     mirror: stan sprzed poprawki, do porownania */
-  .stage[data-back="flip"] .cell.is-back .breath { transform:rotateY(180deg) }
-  .stage[data-back="hide"] .breath { backface-visibility:hidden; -webkit-backface-visibility:hidden }
-  .cell { --tint:var(--titan) }
-  .cell.is-front { --tint:var(--tint-front) }
-  .sonar { position:absolute; inset:0; border-radius:3.2%/6.1%; border:1px solid var(--tint); opacity:0; pointer-events:none }
-  .stage.lit .cell.is-front .sonar { animation:sonarOut 3s cubic-bezier(.1,.7,.1,1) var(--sdel,0s) infinite }
-  .sonar.s2 { animation-delay:calc(var(--sdel,0s) + 1.5s) !important }
-  @keyframes sonarOut { 0%{transform:scale(1);opacity:calc(var(--radar)*.85)} 70%{opacity:0} 100%{transform:scale(1.42);opacity:0} }
-  .plate { position:relative; z-index:1; width:100%; aspect-ratio:1.9; border-radius:3.2%/6.1%;
-    background:linear-gradient(148deg,rgba(242,244,245,.18) 0%,rgba(242,244,245,.05) 34%,rgba(242,244,245,0) 58%),rgba(23,29,35,.62);
-    border:1px solid rgba(190,210,230,.22); backdrop-filter:blur(10px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6%; overflow:hidden; opacity:0 }
-  .cell.is-front .plate {
-    background:linear-gradient(148deg,rgba(242,244,245,.26) 0%,rgba(242,244,245,.07) 36%,rgba(242,244,245,0) 60%),rgba(23,29,35,.76);
-    backdrop-filter:blur(16px) }
-  .plate::before { content:""; position:absolute; inset:-1px; border:1.5px solid var(--tint); border-radius:inherit; opacity:var(--edgeint);
-    box-shadow:0 0 18px -2px var(--tint), inset 0 0 16px -7px var(--tint); pointer-events:none;
-    /* przejscie tytan -> czerwien w chwili, gdy plytka staje z przodu */
-    transition:border-color .28s ease, box-shadow .28s ease }
-  .plate::after { content:""; position:absolute; left:5%; right:5%; top:4%; height:1px; background:linear-gradient(90deg,transparent,rgba(242,244,245,.5),transparent) }
-  .stage.lit .plate { animation:igniteFluo var(--igdur) linear var(--igdel) both }
-  @keyframes igniteFluo { 0%{opacity:0}4%{opacity:.9}6%{opacity:.04}13%{opacity:.96}16%{opacity:.06}21%{opacity:.5}24%{opacity:.1}31%{opacity:1}36%{opacity:.28}44%{opacity:1}52%{opacity:.7}62%{opacity:1}72%{opacity:.88}100%{opacity:1} }
-  .p-icon { width:25%; max-width:52px; aspect-ratio:1; display:block; color:var(--tint); opacity:.9;
-    transition:color .28s ease, width .28s ease, max-width .28s ease }
-  .p-icon svg { width:100%; height:100%; display:block }
-  .p-name { position:relative; z-index:3; font-family:var(--disp); font-weight:600; font-size:clamp(10px,2.1vw,23px); text-transform:uppercase; color:#F2F4F5; line-height:1; text-align:center; text-shadow:0 1px 9px rgba(0,0,0,.9);
-    transition:font-size .28s ease }
-  /* plytka z przodu: wiekszy symbol i napis - czytelniejsze, a przy okazji
-     zaslaniaja przeswitujacy napis tylnej plytki widoczny przez szklo */
-  .cell.is-front .plate { gap:3%; transition:gap .28s ease }
-  .cell.is-front .p-icon { width:36%; max-width:78px }
-  .cell.is-front .p-name { font-size:clamp(14px,2.9vw,30px) }
-  @media (prefers-reduced-motion:reduce){ .p-icon,.p-name{transition:none} }
-  /* WSTAWANIE SWIATLA — z-index 10, czyli NAD tlem, ale POD plytkami (20) i logo (30).
-     Dzieki temu czern gasi tylko pejzaz, a plytki i neon zapalaja sie przez nia, wlasnym rytmem.
-     Krzywa trzyma czern prawie pelna przez pierwsza trzecia — gory maja wychodzic pozno i wolno. */
-  .stage::after { content:""; position:absolute; inset:0; background:#000; opacity:1; z-index:10; pointer-events:none }
-  .stage.lit::after { animation:wstawanieSwiatla calc(var(--rise,3200) * 1ms) linear both }
-  @keyframes wstawanieSwiatla {
-    0%{opacity:1} 20%{opacity:.985} 34%{opacity:.94} 48%{opacity:.84}
-    62%{opacity:.66} 74%{opacity:.46} 86%{opacity:.24} 94%{opacity:.1} 100%{opacity:0}
-  }
+.status-line{
+  display:none;justify-content:center;gap:28px;margin:-6px 0 26px;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
 
-  /* logo w gornym pasie, podpis w dolnym. Oba nad pierscieniem, ale pod blackoutem — wchodza razem ze scena.
-     pointer-events:none, zeby nie odbieraly przeciagania pierscienia. */
-  /* Logo nie jest <img> tylko maska: ksztalt bierzemy z kanalu alfa pliku, kolor malujemy sami.
-     Plik logo ma dokladnie jedna przerwe w pikselach — miedzy ramka a "e-produkty", na 73–77,3% wysokosci.
-     Twardy stop gradientu w jej srodku (75%) rozdziela czerwony wyraz od bialego podpisu. */
-  .brandmark { position:absolute; left:50%; top:4%; transform:translateX(-50%); display:block; width:26%; max-width:300px;
-    aspect-ratio:900/352; z-index:30; pointer-events:none; opacity:0;
-    background:linear-gradient(180deg, var(--neon) 0 75%, var(--neon-w) 75% 100%);
-    -webkit-mask:var(--logo) center/contain no-repeat; mask:var(--logo) center/contain no-repeat;
-    filter:brightness(1) drop-shadow(0 0 5px rgba(229,18,10,.5)) drop-shadow(0 0 17px rgba(229,18,10,.26)) }
-  @supports not ((-webkit-mask-image:url(#m)) or (mask-image:url(#m))) { .brandmark { display:none } }
+.grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:7px}
 
-  /* ZAPLON NEONU. Kazda klatka ma ten sam zestaw filtrow (brightness + dwa drop-shadow),
-     bo przy roznej liczbie funkcji przegladarka nie interpoluje, tylko skacze.
-     Uderzenia sa jasniejsze od stanu spoczynku — stad brightness > 1 i mocniejsza poswiata. */
-  @keyframes zaplonNeonu {
-    0%   { opacity:0;   filter:brightness(1)   drop-shadow(0 0 0px rgba(253,24,11,0))   drop-shadow(0 0 0px rgba(229,18,10,0)) }
-    4%   { opacity:.92; filter:brightness(1.5) drop-shadow(0 0 11px rgba(253,24,11,.9)) drop-shadow(0 0 27px rgba(229,18,10,.5)) }
-    7%   { opacity:.05; filter:brightness(1)   drop-shadow(0 0 0px rgba(253,24,11,0))   drop-shadow(0 0 0px rgba(229,18,10,0)) }
-    13%  { opacity:1;   filter:brightness(1.7) drop-shadow(0 0 15px rgba(253,24,11,.95)) drop-shadow(0 0 36px rgba(229,18,10,.62)) }
-    17%  { opacity:.06; filter:brightness(1)   drop-shadow(0 0 0px rgba(253,24,11,0))   drop-shadow(0 0 0px rgba(229,18,10,0)) }
-    23%  { opacity:.62; filter:brightness(1.25) drop-shadow(0 0 8px rgba(253,24,11,.6)) drop-shadow(0 0 19px rgba(229,18,10,.34)) }
-    27%  { opacity:.1;  filter:brightness(1)   drop-shadow(0 0 0px rgba(253,24,11,0))   drop-shadow(0 0 0px rgba(229,18,10,0)) }
-    36%  { opacity:1;   filter:brightness(1.8) drop-shadow(0 0 18px rgba(253,24,11,1))  drop-shadow(0 0 42px rgba(229,18,10,.7)) }
-    43%  { opacity:.5;  filter:brightness(1.15) drop-shadow(0 0 7px rgba(253,24,11,.5)) drop-shadow(0 0 18px rgba(229,18,10,.3)) }
-    52%  { opacity:1;   filter:brightness(1.55) drop-shadow(0 0 15px rgba(253,24,11,.85)) drop-shadow(0 0 34px rgba(229,18,10,.55)) }
-    62%  { opacity:.88; filter:brightness(1.2) drop-shadow(0 0 9px rgba(253,24,11,.6)) drop-shadow(0 0 22px rgba(229,18,10,.36)) }
-    74%  { opacity:1;   filter:brightness(1.35) drop-shadow(0 0 12px rgba(253,24,11,.7)) drop-shadow(0 0 28px rgba(229,18,10,.45)) }
-    100% { opacity:1;   filter:brightness(1)   drop-shadow(0 0 5px rgba(229,18,10,.5))  drop-shadow(0 0 17px rgba(229,18,10,.26)) }
-  }
-  .stage.lit .brandmark { animation:zaplonNeonu 2.3s linear .85s both }
+.tile{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  padding:11px 6px 9px;text-decoration:none;color:inherit;border-radius:10px;
+  background:linear-gradient(160deg, rgba(242,244,245,.05), rgba(242,244,245,0) 55%), var(--plate);
+  border:1px solid var(--line-soft);
+  opacity:0;transform:translateY(10px);animation:rise .55s cubic-bezier(.2,.7,.2,1) forwards;
+  transition:border-color .2s ease, transform .15s ease;
+}
+.tile:hover{border-color:rgba(229,18,10,.5)}
+.tile:active{transform:scale(.97)}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+.tile:nth-child(1){animation-delay:.05s}
+.tile:nth-child(2){animation-delay:.17s}
+.tile:nth-child(3){animation-delay:.29s}
+.tile:nth-child(4){animation-delay:.41s}
+.tile:nth-child(5){animation-delay:.53s}
+.tile:nth-child(6){animation-delay:.65s}
 
-  /* podpis firmy jest teraz tez jedynym wejsciem do "O nas" - polaczone
-     w jedna linie, zeby nie dublowac miejsca na scenie. Prawdziwy <a>,
-     wiec pointer-events wlaczone (w odroznieniu od brandmark, ktory zostaje dekoracja). */
-  /* left:50%+transform zamiast left:0;right:0 - obszar klikalny ma odpowiadac
-     samemu tekstowi, a nie calej szerokosci sceny na tej wysokosci. */
-  .founded { position:absolute; left:50%; bottom:5.4%; transform:translateX(-50%); margin:0; white-space:nowrap; z-index:30;
-    display:flex; flex-direction:column; align-items:center; gap:.35em;
-    text-decoration:none; text-shadow:0 1px 10px rgba(0,0,0,.95), 0 0 22px rgba(0,0,0,.85); opacity:0 }
-  .founded .cta { font-family:var(--mono); font-weight:700; font-size:clamp(11px,1.4vw,15px); letter-spacing:.28em;
-    text-transform:uppercase; color:var(--neon-w); animation:pulsUwaga 2.2s ease-in-out infinite }
-  .founded .sub { font-family:var(--mono); font-size:clamp(8px,.95vw,10.5px); letter-spacing:.24em;
-    text-transform:uppercase; color:var(--ink-3) }
-  .founded:hover .cta, .founded:focus-visible .cta { color:var(--neon) }
-  .founded:focus-visible { outline:1px solid var(--neon); outline-offset:4px }
-  @keyframes pulsUwaga { 0%,100%{opacity:1} 50%{opacity:.5} }
-  @media (prefers-reduced-motion:reduce){ .founded .cta{animation:none} }
-  @keyframes pojawSie { from{opacity:0} to{opacity:1} }
-  /* podpis wchodzi ostatni, cicho — kiedy neon juz sie ustabilizowal */
-  .stage.lit .founded { animation:pojawSie 1.1s ease 2.9s both }
-  @media (max-width:640px){
-    .brandmark { width:60%; max-width:none; top:4.6% }
-    .founded { bottom:4.4%; letter-spacing:.22em }
-  }
+.gauge{position:relative;width:52px;height:52px}
+.gauge .ticks{
+  position:absolute;inset:0;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg, var(--line) 0deg 3deg, transparent 3deg 30deg);
+  -webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+          mask:radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+}
+.gauge svg.arc{position:absolute;inset:5px}
+.arc-bg{fill:none;stroke:var(--line-soft);stroke-width:4}
+.arc-fg{
+  fill:none;stroke:var(--red);stroke-width:4;
+  filter:drop-shadow(0 0 4px rgba(229,18,10,.65));
+  opacity:0;
+  animation:ringin .5s ease forwards, breathe 3.6s ease-in-out .5s infinite;
+}
+@keyframes ringin{to{opacity:1}}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.72}}
 
+.icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink-2);transition:color .2s ease}
+.icon svg{width:19px;height:19px}
+.tile:hover .icon{color:var(--red)}
 
-  /* Przy wylaczonych animacjach samo "animation:none" zostawialo scene CZARNA: plytki, logo i podpis
-     startuja z opacity 0 i dochodza do 1 dopiero animacja, a zaciemnienie startuje z 1.
-     Trzeba wiec dopisac stan koncowy recznie. */
-  @media (prefers-reduced-motion:reduce){
-    * { animation:none !important }
-    .plate, .brandmark, .founded { opacity:1 !important }
-    .stage::after { opacity:0 !important }
-  }
+.name{
+  font-family:"Saira Condensed",sans-serif;font-weight:500;font-size:13.5px;letter-spacing:.04em;
+  text-transform:uppercase;text-align:center;color:var(--ink);
+}
+
+.nameplate{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;
+  margin-top:10px;padding:12px 10px;text-decoration:none;border-radius:8px;
+  background:linear-gradient(160deg, rgba(242,244,245,.04), transparent 60%), var(--plate);
+  border:1px solid var(--line-soft);
+  opacity:0;transform:translateY(8px);animation:rise .6s ease .8s forwards;
+}
+.rivet{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--line);box-shadow:inset 0 1px 1px rgba(0,0,0,.6)}
+.rivet.tl{top:8px;left:8px}.rivet.tr{top:8px;right:8px}.rivet.bl{bottom:8px;left:8px}.rivet.br{bottom:8px;right:8px}
+.np-cta{font-weight:500;font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--red);text-shadow:0 0 12px rgba(229,18,10,.4);animation:pulse 2.2s ease-in-out infinite}
+.np-sub{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+@media (min-width:860px){
+  .scene{max-width:980px;padding:40px 48px 48px}
+  .panel-ticks,.panel-beam{width:820px;height:820px;top:-96px}
+  .status-line{display:flex}
+  .brand img{height:78px}
+  .grid{grid-template-columns:repeat(3,1fr);gap:20px}
+  .tile{padding:30px 18px 26px;border-radius:12px}
+  .tile:hover{transform:translateY(-3px)}
+  .gauge{width:88px;height:88px}
+  .icon svg{width:32px;height:32px}
+  .name{font-size:16px;letter-spacing:.06em}
+  .nameplate{flex-direction:row;justify-content:center;gap:22px;margin-top:30px;padding:20px 26px}
+  .np-sub{font-size:10.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tile,.nameplate{animation:none!important;opacity:1!important;transform:none!important}
+  .arc-fg{animation:none!important;opacity:1!important}
+  .panel-beam{animation:none!important}
+  .np-cta{animation:none!important}
+}
 </style>
 
-<template id="tpl-ring">
-  <div class="field" data-field><div class="ring" data-ring>
-    <div class="cell is-front" style="--a:0"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.1 15.1L20 20"/><path d="M8 10.5h5"/><path d="M10.5 8v5"/></svg></span><span class="p-name">Dobór sprzętu</span></span></span></div>
-    <div class="cell" style="--a:60"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3.5" width="8" height="17" rx="2.6"/><path d="M10.6 3.5V2.2h2.8v1.3"/><path d="M9.6 9h4.8"/><path d="M9.6 12.2h4.8"/></svg></span><span class="p-name">Zestawy</span></span></span></div>
-    <div class="cell" style="--a:120"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.2 2.6h3.6v3.3l2.1 2.7v10.8a2 2 0 0 1-2 2H10.1a2 2 0 0 1-2-2V8.6l2.1-2.7V2.6z"/><path d="M8.1 13.2h7.8"/></svg></span><span class="p-name">Liquidy</span></span></span></div>
-    <div class="cell" style="--a:180"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2c0 0 5.4 5.7 5.4 9.4a5.4 5.4 0 1 1-10.8 0C6.6 8.9 12 3.2 12 3.2z"/><path d="M12 10.6l1.7 2-1.7 2-1.7-2z"/></svg></span><span class="p-name">Sole</span></span></span></div>
-    <div class="cell" style="--a:240"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="7.4" rx="5.2" ry="1.9"/><ellipse cx="12" cy="12" rx="5.2" ry="1.9"/><ellipse cx="12" cy="16.6" rx="5.2" ry="1.9"/><path d="M6.8 7.4v9.2"/><path d="M17.2 7.4v9.2"/></svg></span><span class="p-name">Części</span></span></span></div>
-    <div class="cell" style="--a:300"><span class="breath"><span class="sonar"></span><span class="sonar s2"></span><span class="plate"><span class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s7-6.4 7-11.2a7 7 0 1 0-14 0c0 4.8 7 11.2 7 11.2z"/><circle cx="12" cy="9.8" r="2.7"/></svg></span><span class="p-name">Kontakt</span></span></span></div>
-  </div></div>
-</template>
+<div class="scene">
+  <div class="panel-ticks"></div>
+  <div class="panel-beam"></div>
 
-<style>
-  .real-sign{position:fixed;top:max(16px,env(safe-area-inset-top,0px));left:16px;z-index:50;pointer-events:none}
-  .real-sign h1{margin:0;font-family:"Cascadia Mono",Consolas,"SF Mono",monospace;font-weight:400;
-    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#a2a8ae;white-space:nowrap}
-  .real-sign h1 b{color:#ef4444;font-weight:600}
-  @media (max-width:640px){
-    .real-sign{left:50%;top:63vh;top:63dvh;transform:translateX(-50%);text-align:center}
-    .real-sign h1{white-space:normal;font-size:.66rem}
-  }
-</style>
-<div class="real-sign">
-  <h1><b>Asumpt</b> · Pl. Wilsona 4, Żoliborz</h1>
-</div>
+  <div class="brand"><img src="../logo-asumpt.png" alt="Asumpt e-produkty" width="1100" height="430"></div>
 
-<div class="wrap">
-  <div class="sheet">
-    <div class="stage" data-stage data-back="flip"><div class="bgimg" style="background-image:url(../tapeta-karuzela.svg)"></div></div>
+  <div class="status-line">
+    <span>Pl. Wilsona 4 · Żoliborz</span>
+    <span>Pn–Pt 11–19 · Sob 11–14</span>
   </div>
+
+  <div class="grid">
+    <a class="tile" href="sole.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2c0 0 5.4 5.7 5.4 9.4a5.4 5.4 0 1 1-10.8 0C6.6 8.9 12 3.2 12 3.2z"/><path d="M12 10.6l1.7 2-1.7 2-1.7-2z"/></svg></span>
+      </span>
+      <span class="name">Sole</span>
+    </a>
+    <a class="tile" href="liquidy.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.2 2.6h3.6v3.3l2.1 2.7v10.8a2 2 0 0 1-2 2H10.1a2 2 0 0 1-2-2V8.6l2.1-2.7V2.6z"/><path d="M8.1 13.2h7.8"/></svg></span>
+      </span>
+      <span class="name">Liquidy</span>
+    </a>
+    <a class="tile" href="kontakt.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.2s7-6.4 7-11.2a7 7 0 1 0-14 0c0 4.8 7 11.2 7 11.2z"/><circle cx="12" cy="9.8" r="2.7"/></svg></span>
+      </span>
+      <span class="name">Kontakt</span>
+    </a>
+    <a class="tile" href="zestawy.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3.5" width="8" height="17" rx="2.6"/><path d="M10.6 3.5V2.2h2.8v1.3"/><path d="M9.6 9h4.8"/><path d="M9.6 12.2h4.8"/></svg></span>
+      </span>
+      <span class="name">Zestawy</span>
+    </a>
+    <a class="tile" href="czesci-akcesoria.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="7.4" rx="5.2" ry="1.9"/><ellipse cx="12" cy="12" rx="5.2" ry="1.9"/><ellipse cx="12" cy="16.6" rx="5.2" ry="1.9"/><path d="M6.8 7.4v9.2"/><path d="M17.2 7.4v9.2"/></svg></span>
+      </span>
+      <span class="name">Części</span>
+    </a>
+    <a class="tile" href="dobor-sprzetu.html">
+      <span class="gauge"><span class="ticks"></span>
+        <svg class="arc" viewBox="0 0 100 100"><circle class="arc-bg" cx="50" cy="50" r="40"/><circle class="arc-fg" cx="50" cy="50" r="40"/></svg>
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.1 15.1L20 20"/><path d="M8 10.5h5"/><path d="M10.5 8v5"/></svg></span>
+      </span>
+      <span class="name">Dobór sprzętu</span>
+    </a>
+  </div>
+
+  <a class="nameplate" href="o-nas.html">
+    <span class="rivet tl"></span><span class="rivet tr"></span><span class="rivet bl"></span><span class="rivet br"></span>
+    <span class="np-cta">Poznaj nas →</span>
+    <span class="np-sub">Działamy od 1990 r.</span>
+  </a>
 </div>
 
 <script>
-(function(){
-  var rnd=function(a,b){return Math.random()*(b-a)+a;};
-  var tpl=document.getElementById("tpl-ring");
-  var scenes=[];
-
-  document.querySelectorAll("[data-stage]").forEach(function(stage){
-    var seams=document.createElement("div"); seams.className="seams";
-    for(var i=0;i<=19;i++){
-      var t=(i/19)*Math.PI, x=(1-Math.cos(t))/2, e=Math.abs(Math.cos(t));
-      var s=document.createElement("div"); s.className="seam";
-      s.style.left=(x*100).toFixed(2)+"%"; s.style.opacity=(0.14+e*0.6).toFixed(2);
-      seams.appendChild(s);
-    }
-    stage.appendChild(seams);
-    var ribs=document.createElement("div"); ribs.className="ribs";
-    [{t:4,h:30,w:118,o:.07},{t:14,h:44,w:132,o:.13},{t:34,h:52,w:146,o:.16},{t:56,h:56,w:138,o:.12},{t:78,h:46,w:124,o:.07}].forEach(function(r){
-      var el=document.createElement("div"); el.className="rib";
-      el.style.top=r.t+"%"; el.style.height=r.h+"%"; el.style.width=r.w+"%"; el.style.setProperty("--ro",r.o);
-      ribs.appendChild(el);
+if (window.matchMedia('(min-width:860px)').matches &&
+    window.matchMedia('(pointer:fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  document.querySelectorAll('.tile').forEach(function(t){
+    t.addEventListener('mousemove', function(e){
+      var r = t.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      t.style.transform = 'perspective(700px) rotateX(' + (-y*7).toFixed(2) + 'deg) rotateY(' + (x*7).toFixed(2) + 'deg) translateY(-3px)';
     });
-    stage.appendChild(ribs);
-    var core=document.createElement("div"); core.className="core"; stage.appendChild(core);
-    var brand=document.createElement("div"); brand.className="brandmark";
-    brand.setAttribute("role","img"); brand.setAttribute("aria-label","Asumpt e-produkty");
-    brand.style.setProperty("--logo",'url("../logo-asumpt.png")'); stage.appendChild(brand);
-    /* Podpis firmy = jedyne wejscie do "O nas" (kategoria bez plytki).
-       Dwie linie: "Poznaj nas" pulsujace (wezwanie do klikniecia),
-       fakt firmowy pod spodem, ciszej. */
-    var podpis=document.createElement("a"); podpis.className="founded"; podpis.href="o-nas.html";
-    var cta=document.createElement("span"); cta.className="cta"; cta.textContent="Poznaj nas →";
-    var sub=document.createElement("span"); sub.className="sub"; sub.textContent="Działamy od 1990 r.";
-    podpis.appendChild(cta); podpis.appendChild(sub); stage.appendChild(podpis);
-    stage.appendChild(tpl.content.cloneNode(true));
-    scenes.push({stage:stage, field:stage.querySelector("[data-field]"), ring:stage.querySelector("[data-ring]"),
-                 cells:Array.prototype.slice.call(stage.querySelectorAll(".cell")), angle:0, target:0, raf:0, dragging:false, lastX:0, flipAt:90});
+    t.addEventListener('mouseleave', function(){ t.style.transform = ''; });
   });
-
-  function geom(sc){
-    var w=sc.stage.clientWidth; if(!w){return;}
-    var narrow=w<640, pw=narrow?w*.72:w*.30, r=narrow?w*.62:w*.42;
-    sc.cells.forEach(function(c){ c.style.setProperty("--pw",pw.toFixed(0)+"px"); c.style.setProperty("--radius",r.toFixed(0)+"px"); });
-    /* Kat, przy ktorym plytka stoi kantem do kamery: cos(kat) = promien / perspektywa.
-       Nie 90 stopni — perspektywa przesuwa ten moment. Tu przelaczamy tyl plytki, wiec zmiana jest niewidoczna. */
-    var P=parseFloat(getComputedStyle(sc.field).perspective)||1100;
-    sc.flipAt=Math.acos(Math.min(1,r/P))*180/Math.PI;
-  }
-  function depth(sc){
-    sc.cells.forEach(function(c){
-      var a=((parseFloat(c.style.getPropertyValue("--a"))+sc.angle)%360+360)%360;
-      var dn=Math.min(a,360-a)/180;
-      /* mocniejsze przygaszenie i rozmycie w glebi - napis tylnej plytki ma
-         zostac czytelny jako detal, nie konkurowac z przednim */
-      c.querySelector(".plate").style.filter="brightness("+(1-dn*.62).toFixed(2)+") blur("+(dn*3.6).toFixed(2)+"px)";
-      c.style.zIndex=String(100-Math.round(dn*100));
-      c.classList.toggle("is-front",dn<.12);
-      c.classList.toggle("is-back",a>sc.flipAt&&a<360-sc.flipAt);
-    });
-  }
-  function tick(sc){
-    var d=sc.target-sc.angle;
-    if(Math.abs(d)<.02){ sc.angle=sc.target; sc.raf=0; sc.ring.style.setProperty("--ring",sc.angle.toFixed(2)); depth(sc); return; }
-    sc.angle+=d*.12; sc.ring.style.setProperty("--ring",sc.angle.toFixed(2)); depth(sc);
-    sc.raf=requestAnimationFrame(function(){tick(sc);});
-  }
-  function snap(sc){ sc.target=Math.round(sc.target/60)*60; if(!sc.raf){ sc.raf=requestAnimationFrame(function(){tick(sc);}); } }
-
-  scenes.forEach(function(sc){
-    sc.field.addEventListener("pointerdown",function(e){ sc.dragging=true; sc.lastX=e.clientX; sc.field.classList.add("dragging"); sc.field.setPointerCapture(e.pointerId); });
-    sc.field.addEventListener("pointermove",function(e){
-      if(!sc.dragging){return;}
-      var dx=e.clientX-sc.lastX; sc.lastX=e.clientX;
-      sc.target+=dx*.32; sc.angle+=dx*.32;
-      sc.ring.style.setProperty("--ring",sc.angle.toFixed(2)); depth(sc);
-    });
-    var end=function(){ if(sc.dragging){ sc.dragging=false; sc.field.classList.remove("dragging"); snap(sc); } };
-    sc.field.addEventListener("pointerup",end); sc.field.addEventListener("pointercancel",end);
-  });
-
-  function shuffle(sc){
-    var tempo=parseFloat(sc.stage.style.getPropertyValue("--tempo"))||0;
-    sc.cells.forEach(function(c,n){
-      var p=c.querySelector(".plate");
-      p.style.setProperty("--igdel",(.35+n*(.2+tempo*.6)+rnd(-.06,.14)).toFixed(2)+"s");
-      p.style.setProperty("--igdur",(.8+tempo*2+rnd(-.15,.3)).toFixed(2)+"s");
-      c.querySelectorAll(".sonar").forEach(function(s){ s.style.setProperty("--sdel",(n*.34).toFixed(2)+"s"); });
-    });
-  }
-  function play(){
-    scenes.forEach(function(sc){ sc.stage.classList.remove("lit"); shuffle(sc); void sc.stage.offsetWidth;
-      setTimeout(function(){ sc.stage.classList.add("lit"); },380); });
-  }
-  if("ResizeObserver" in window){
-    var ro=new ResizeObserver(function(){ scenes.forEach(function(sc){ geom(sc); depth(sc); }); });
-    scenes.forEach(function(sc){ ro.observe(sc.stage); });
-  }
-  var tries=0;
-  (function settle(){ scenes.forEach(function(sc){ geom(sc); depth(sc); });
-    if(!scenes[0].stage.clientWidth && tries++<90){ requestAnimationFrame(settle); } })();
-  window.addEventListener("load",function(){ scenes.forEach(function(sc){ geom(sc); depth(sc); }); });
-  play();
-})();
-</script>
-
-<!-- PODGLAD NA TELEFON - sama scena, bez panelu roboczego.
-     Te reguly stały TUTAJ i przez to dzialaly ZA POZNO: dzielilo je od
-     znacznika panelu 230 000 bajtow (tlo i logo wpisane w plik jako
-     data URI), wiec przegladarka zdazyla pokazac suwaki i naglowek na
-     ulamek sekundy przed zaplonem. Przeniesione do <style> w naglowku
-     pliku, zaraz za regula "code". Tutaj nie zostawiamy kopii, zeby
-     nie bylo dwoch miejsc do zmieniania. -->
-
-
-<style>
-/* ============================================================
-   POPRAWKA KADRU I GLEBI - wersja 3, 17.08.2026
-
-   Wersja 1 naprawila kadr (mieszczenie sie w oknie, podpis widoczny),
-   ale regula perspektywy nie trafila w element - w pliku produkcyjnym
-   panel z suwakami jest zdjety, wiec klasa "mode-ring" nie istnieje.
-   Perspektywe ustawia wiec skrypt ponizej, ktory znajduje wlasciwy
-   element sam i odczytuje prawdziwe wymiary sceny.
-
-   Wersja 2 regulowala wielkosc jedna liczba dla kazdej szerokosci okna
-   i przez to dusila scene na telefonie do 30% kadru.
-
-   Wersja 3 rozdziela pulpit od telefonu - patrz komentarz przy UDZIAL_TEL.
-   ============================================================ */
-
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #04060a;
 }
-
-/* Kadr: wysrodkowany, wpisany w okno. 177.7vh = 16/9 wysokosci okna,
-   wiec przy niskim i szerokim oknie o rozmiarze decyduje wysokosc. */
-.stage {
-  position: fixed !important;
-  inset: 0 !important;
-  margin: auto !important;
-  width: min(100vw, 177.7vh) !important;
-  max-width: none !important;
-}
-</style>
-
-<script>
-/* ============================================================
-   GLEBIA PIERSCIENIA - samoregulacja
-
-   Problem: promien pierscienia rosnie razem z szerokoscia kadru
-   (radius = mnoznik * szerokosc), ale perspektywa jest wpisana
-   na sztywno. Im szerszy ekran, tym mocniej przednia plytka jest
-   przysunieta do kamery - az wypelnia caly ekran i pierscien
-   przestaje byc czytelny jako bryla.
-
-   Zmierzone przed poprawka: przy oknie 2000x950 przednia plytka
-   miala 2538 px przy kadrze 2000 px, czyli 127% szerokosci kadru.
-
-   Rozwiazanie: nie zgadujemy zadnych liczb. Skrypt odczytuje ze sceny
-   rzeczywista szerokosc plytki (--pw) i promien pierscienia (--radius)
-   i rozdziela sterowanie na dwie osobne rzeczy:
-
-     GLEBIA  -> perspektywa. Ile przednia plytka jest wieksza od bocznych.
-     UDZIAL  -> jednolite odsuniecie calego pierscienia. Jak duzy jest
-                pierscien na ekranie.
-
-   Rozdzielenie jest konieczne, bo sama perspektywa NIE potrafi zmniejszyc
-   przedniej plytki ponizej jej wlasnej szerokosci z ukladu - przednia
-   plytka jest najblizej kamery, wiec zawsze jest powiekszana, nigdy
-   pomniejszana. Probowanie zejscia nizej sama perspektywa konczy sie
-   splaszczeniem sceny do zera glebi.
-
-   Powiekszenie przedniej plytki = P / (P - promien) = g
-   Stad:   P = promien * g / (g - 1)
-   Skala:  k = UDZIAL * szerokosc_kadru / (szerokosc_plytki * g)
-
-   Przelicza sie przy kazdej zmianie rozmiaru okna.
-   ============================================================ */
-(function () {
-  "use strict";
-
-  /* Wielkosc pierscienia na PULPICIE. 0.30 = przednia plytka zajmuje 30%
-     szerokosci kadru. Mniej = pierscien cofniety glebiej.
-     Zatwierdzone przez Jacka 17.08: "Jest idealnie". Nie ruszac. */
-  var UDZIAL = 0.30;
-
-  /* Wielkosc pierscienia na TELEFONIE - osobna liczba, bo telefon ma
-     zupelnie inne warunki: kadr jest waski i pionowy (3/4 zamiast 16/9),
-     a uklad sceny sam z siebie daje tam plytce 72% szerokosci zamiast 30%.
-
-     Jedna wspolna liczba dla obu przypadkow nie ma sensu:
-       - 0.30 dusilo scene na telefonie do 113 px przednia plytke,
-       - stan sprzed poprawki (0.91) rozpychal przednia plytke od krawedzi
-         do krawedzi i z bocznych plytek zostawaly slupki po 17 px - nie
-         bylo widac, ze cokolwiek jest z boku i ze pierscien ma sie
-         z czego obracac.
-
-     ZMIERZONE w Chromium przy kadrze 375 x 500 (okno 375 x 812):
-
-       UDZIAL_TEL   przednia plytka   z bocznej widac   zapas do krawedzi
-       ----------   ---------------   ---------------   -----------------
-          0.50        187 x  99 px         54 px              40 px
-          0.56        210 x 111 px         60 px              22 px
-       -> 0.60        225 x 118 px         64 px              11 px   <- ustawione
-          0.62        232 x 122 px         66 px               5 px   (maksimum)
-          0.68        255 x 134 px         60 px             -13 px   (bok przyciety)
-          0.91        341 x 180 px         17 px             -66 px   (stan sprzed poprawki)
-
-     Widocznosc bocznej plytki rosnie tylko do ~0.62 i potem MALEJE, bo
-     boki zaczynaja uciekac poza kadr i sa przycinane jego krawedzia.
-     0.60 stoi tuz pod tym szczytem - boczne plytki sa najszersze, jakie
-     moga byc, i caly pierscien nadal miesci sie w kadrze z zapasem.
-
-     ZATWIERDZONE przez Jacka 17.08: "Te 60% jest idealne". Nie ruszac. */
-  var UDZIAL_TEL = 0.60;
-
-  /* WYSOKOSC KADRU NA TELEFONIE - proporcja szerokosc/wysokosc.
-     0.75 = 3/4, czyli stan zastany. 0 = kadr na caly ekran.
-
-     Skad sie biora czarne pasy: kadr ma sztywna proporcje 3/4, a telefon
-     jest znacznie wyzszy (375 x 812 to proporcja 0.46). Kadr wychodzi
-     375 x 500 i jest wysrodkowany, wiec zostaje po 156 px czerni u gory
-     i u dolu - 38% ekranu.
-
-     Nie da sie tego zabrac za darmo. Tlo (1400 x 788) jest wpasowane
-     przez "cover", wiec im wyzszy kadr, tym wezszy wycinek pejzazu widac:
-
-       kadr           wysokosc   czarny pas   z pejzazu widac wszerz
-       ------------   --------   ----------   ----------------------
-       0.75 (3/4)     500 px     156 px       42%   (stan zastany)
-       0.60 (3/5)     625 px      94 px       34%
-       0.50 (1/2)     750 px      31 px       28%
-       0    (pelny)   812 px       0 px       26%   <- ustawione
-
-     Czyli: mniej czerni = ciasniejszy wycinek gor i drogi. Do obejrzenia
-     obok siebie: PROBA-KADR.html.
-
-     WYBRANE przez Jacka 18.08: pelny ekran. Uzasadnienie warte zapisania,
-     bo dotyczy nie tylko tej jednej liczby:
-       "Tu ten pelny pejzaz nie ma takiego znaczenia jak na szerokim
-        ekranie. I tak nikt tego nie zauwazy, a te ciemne puste pasy
-        od razu widac."
-     Czyli: na telefonie wygrywa brak pustki, nie kompletnosc tla.
-     Tlo jest atmosfera, nie trescia - ta sama zasada, co "tlo nie moze
-     wygrywac z trescia" z etapu wybierania sceny.
-
-     Pulpitu to NIE dotyczy - dziala tylko ponizej PROG_TEL. */
-  var KADR_TEL = 0;
-
-  /* Prog telefonu. 640 px to ten sam prog, ktorego uzywa sama scena
-     (@media max-width:640px oraz narrow = w < 640 w jej skrypcie).
-     Musi byc ten sam, inaczej ponizej progu liczylibysmy skale
-     do jednego ukladu, a scena rysowalaby drugi. */
-  var PROG_TEL = 640;
-
-  /* Powiekszenie przedniej plytki wzgledem bocznych, czyli sila perspektywy
-     NA PULPICIE. 1.45 jest blisko stanu zatwierdzonego (promien 325 px przy
-     perspektywie 1100 px daje 1.42). Wieksze = mocniejsza glebia. Tego nie
-     ruszamy przy regulacji wielkosci - od wielkosci jest UDZIAL. */
-  var GLEBIA = 1.45;
-
-  /* Podglad wariantow telefonu: index.html?u=0.56 nadpisuje UDZIAL_TEL.
-     Sluzy wylacznie do porownywania ustawien obok siebie - patrz
-     PROBA-TELEFON.html. Bez parametru nic sie nie zmienia. */
-  var zAdresu = parseFloat((String(location.search).match(/[?&]u=([0-9.]+)/) || [])[1]);
-  if (isFinite(zAdresu) && zAdresu >= 0.2 && zAdresu <= 1.2) { UDZIAL_TEL = zAdresu; }
-
-  /* To samo dla wysokosci kadru: index.html?k=0.5 albo ?k=0 (pelny ekran).
-     Do porownywania wariantow - patrz PROBA-KADR.html. */
-  var kAdresu = parseFloat((String(location.search).match(/[?&]k=([0-9.]+)/) || [])[1]);
-  if (isFinite(kAdresu) && (kAdresu === 0 || (kAdresu >= 0.3 && kAdresu <= 1.2))) { KADR_TEL = kAdresu; }
-
-  function popraw() {
-    var stage = document.querySelector(".stage");
-    if (!stage) { return false; }
-
-    var cell = stage.querySelector(".cell");
-    if (!cell) { return false; }
-
-    var W = stage.clientWidth;
-    if (!W) { return false; }
-
-    var cs = window.getComputedStyle(cell);
-    var pw = parseFloat(cs.getPropertyValue("--pw"));
-    var promien = parseFloat(cs.getPropertyValue("--radius"));
-
-    /* Uklad siatki zamiast pierscienia - nie ma czego poprawiac. */
-    if (!pw || !promien) { return false; }
-
-    /* Znajdz element, ktory naprawde trzyma perspektywe - idac w gore
-       od plytki. Dzieki temu nie zalezymy od nazw klas. */
-    var host = cell.parentElement;
-    while (host && host !== stage &&
-           window.getComputedStyle(host).perspective === "none") {
-      host = host.parentElement;
-    }
-
-    /* Nic nie ma perspektywy (np. zostala zdjeta) - ustaw na rodzicu
-       pierscienia, czyli tam, gdzie byla pierwotnie. */
-    if (!host || host === stage) {
-      host = cell.parentElement ? cell.parentElement.parentElement : null;
-    }
-    if (!host) { return false; }
-
-    var naTelefonie = W < PROG_TEL;
-
-    /* Wysokosc kadru na telefonie. Porownanie z tym, co juz stoi w stylu,
-       jest konieczne: zmiana kadru zmienia rozmiar sceny, a rozmiar sceny
-       budzi ResizeObserver, ktory wola te funkcje jeszcze raz. Bez tego
-       porownania byloby to bez konca. */
-    if (naTelefonie) {
-      var chcemy = (KADR_TEL > 0) ? String(KADR_TEL) : "auto";
-      if (stage.style.getPropertyValue("aspect-ratio") !== chcemy) {
-        stage.style.setProperty("aspect-ratio", chcemy, "important");
-        /* Przy kadrze na caly ekran nie ma proporcji, ktora policzylaby
-           wysokosc - a dzieci sceny sa pozycjonowane bezwzglednie, wiec
-           z zawartosci wyszloby zero. Wysokosc trzeba podac wprost.
-
-           Najpierw 100%, potem 100dvh. dvh to "dynamiczna wysokosc okna",
-           czyli realnie widoczny obszar na telefonie - bez niej podpis
-           "Firma zalozona w 1990 r." (4,4% od dolu kadru) moglby wpasc
-           pod pasek adresu przegladarki. Stare przegladarki nie znaja
-           dvh i po prostu zignoruja to przypisanie, zostajac przy 100%. */
-        if (KADR_TEL > 0) { stage.style.removeProperty("height"); }
-        else {
-          stage.style.setProperty("height", "100%", "important");
-          stage.style.setProperty("height", "100dvh", "important");
-        }
-      }
-    } else if (stage.style.getPropertyValue("aspect-ratio")) {
-      stage.style.removeProperty("aspect-ratio");
-      stage.style.removeProperty("height");
-    }
-
-    var g;   /* o ile perspektywa powieksza przednia plytke */
-
-    if (naTelefonie) {
-      /* TELEFON - glebi NIE ruszamy.
-         Uklad telefonu byl zatwierdzony ze swoja wlasna perspektywa
-         z arkusza (1100 px, co przy promieniu 233 px daje g = 1.269).
-         Zdejmujemy nasza - zeby po zwezeniu okna z pulpitu wrocila ta
-         wlasciwa - i dopiero wtedy ja odczytujemy.
-         Na telefonie reguluje sie wylacznie wielkosc. */
-      host.style.removeProperty("perspective");
-      var Pt = parseFloat(window.getComputedStyle(host).perspective);
-      if (!Pt || Pt <= promien) { return false; }
-      g = Pt / (Pt - promien);
-    } else {
-      /* PULPIT - perspektywa ustala sile glebi, nie wielkosc.
-         P = promien * g / (g - 1) daje powiekszenie przedniej plytki = g. */
-      g = GLEBIA;
-      host.style.setProperty("perspective",
-        (promien * g / (g - 1)).toFixed(0) + "px", "important");
-    }
-
-    /* Wielkosc zalatwia jednolite odsuniecie calego pierscienia.
-       Sama perspektywa nie potrafi zejsc ponizej wlasnej szerokosci
-       plytki (przednia plytka jest najblizej kamery, wiec zawsze jest
-       powiekszana). Skala na kontenerze dziala jak cofniecie kamery:
-       zmniejsza wszystko rownomiernie i zachowuje proporcje glebi. */
-    var k = ((naTelefonie ? UDZIAL_TEL : UDZIAL) * W) / (pw * g);
-    if (!isFinite(k) || k <= 0) { return false; }
-    if (k > 1.5) { k = 1.5; }
-
-    /* Skala idzie na ten sam element. Jest nakladana PO rzucie
-       perspektywicznym dzieci, wiec nie psuje bryly - dziala dokladnie
-       jak odsuniecie kamery. */
-    host.style.setProperty("transform", "scale(" + k.toFixed(4) + ")", "important");
-    host.style.setProperty("transform-origin", "50% 50%", "important");
-    return true;
-  }
-
-  /* Scena ustawia --pw i --radius dopiero, gdy policzy swoja geometrie,
-     wiec probujemy do skutku przez chwile po starcie. */
-  var proby = 0;
-  (function czekaj() {
-    if (!popraw() && proby++ < 180) {
-      window.requestAnimationFrame(czekaj);
-    }
-  })();
-
-  window.addEventListener("load", popraw);
-
-  /* Przy zmianie rozmiaru okna scena przelicza --pw i --radius,
-     wiec perspektywa musi isc za nimi. */
-  if ("ResizeObserver" in window) {
-    var st = document.querySelector(".stage");
-    if (st) { new ResizeObserver(popraw).observe(st); }
-  } else {
-    window.addEventListener("resize", popraw);
-  }
-})();
-</script>
-
-<style>
-/* ============================================================
-   KLIKNIECIE PLYTKI - warstwa wygladu
-   Dopisywane na koniec index.html przez POPRAW-PULPIT-2.bat.
-   Nie rusza zatwierdzonego wygladu sceny - dodaje wylacznie to,
-   co jest potrzebne, zeby plytka czytala sie jako klikalna.
-   ============================================================ */
-
-/* Kursor. Pierscien nadal mozna przeciagac, wiec w trakcie
-   przeciagania wraca lapka - inaczej "rekawica" gubi sie pod strzalka. */
-.cell { cursor: pointer }
-.field.dragging .cell { cursor: grabbing }
-
-/* Delikatne podswietlenie krawedzi przedniej plytki pod kursorem.
-   Tylko tam, gdzie jest prawdziwy kursor - telefon to pomija.
-   Ruszamy wylacznie poswiata krawedzi (box-shadow), nie kolorem
-   ani wypelnieniem - zeby nie ruszac zatwierdzonego wygladu. */
-@media (hover: hover) {
-  .cell.is-front .plate::before { transition: box-shadow .18s ease }
-  .cell.is-front:hover .plate::before {
-    box-shadow: 0 0 26px -1px var(--tint), inset 0 0 22px -6px var(--tint);
-  }
-}
-
-/* Obwodka przy sterowaniu klawiatura. Mysz jej nie pokazuje. */
-.cell:focus { outline: none }
-.cell:focus-visible .plate {
-  outline: 2px solid var(--tint);
-  outline-offset: 4px;
-}
-.cell:focus-visible .plate::before {
-  box-shadow: 0 0 26px -1px var(--tint), inset 0 0 22px -6px var(--tint);
-}
-
-/* POWROT Z PODSTRONY - bez zaplonu.
-   Zaplon jarzeniowki to wejscie do sklepu i ma sie zdarzyc RAZ, na starcie.
-   Przy powrocie z kategorii scena ma juz stac zapalona - odgrywanie calej
-   sekwencji od nowa (ok. 3,8 s) przy kazdym cofnieciu meczy.
-
-   Gasimy tylko cztery animacje wejscia i dopisujemy ich stan koncowy.
-   Klasa "lit" ZOSTAJE, wiec radar na przedniej plytce dziala dalej -
-   to jedyny ruch, ktory w tej scenie jest ciagly i byl zatwierdzony. */
-.stage.bez-zaplonu::after   { animation: none !important; opacity: 0 !important }
-.stage.bez-zaplonu .plate     { animation: none !important; opacity: 1 !important }
-.stage.bez-zaplonu .brandmark { animation: none !important; opacity: 1 !important }
-.stage.bez-zaplonu .founded   { animation: none !important; opacity: 1 !important }
-
-/* Kurtyna wejscia w kategorie. Ten sam pomysl, co klamka na stronie 1:
-   kadr gasnie do czerni, dopiero potem zmienia sie adres. Podstrona
-   startuje z czerni, wiec szwu nie widac.
-   CZAS w skrypcie ponizej musi byc rowny temu przejsciu. */
-.kurtyna {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #04060a;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .65s ease;
-}
-.kurtyna.gra { opacity: 1; pointer-events: auto }
-</style>
-
-<script>
-/* ============================================================
-   KLIKNIECIE PLYTKI -> PODSTRONA KATEGORII
-
-   Trzy rzeczy do zalatwienia:
-
-   1. Odroznic klikniecie od przeciagania. Pierscien obraca sie
-      przeciaganiem, wiec kazde puszczenie palca po ruchu byloby
-      falszywym klikiem. Kryterium: ruch ponizej PROG pikseli
-      i krocej niz CZAS_TAPU.
-
-   2. Klikniecie bocznej plytki NIE wchodzi na podstrone, tylko
-      dokreca pierscien tak, zeby ta plytka stanela z przodu.
-      Boczne plytki sa przygaszone, rozmyte i waskie - wejscie
-      prosto z nich to prosta droga do pomylki. Wchodzi dopiero
-      klikniecie plytki stojacej z przodu.
-
-   3. Dokrecanie pierscienia przez ODEGRANIE PRZECIAGNIECIA.
-      Scena trzyma swoj kat w prywatnej zmiennej wewnatrz wlasnej
-      funkcji - z zewnatrz nie da sie go ustawic. Gdybysmy pisali
-      wprost po --ring, stan sceny zostalby w tyle i pierwsze
-      prawdziwe przeciagniecie szarpnieloby pierscien z powrotem.
-      Dlatego wysylamy te same zdarzenia pointer, ktore wysyla
-      palec. Scena sama liczy wtedy glebie, przygaszenie plytek
-      i klase is-front - nic nie trzeba duplikowac ani zgadywac.
-   ============================================================ */
-(function () {
-  "use strict";
-
-  /* Ktora plytka dokad prowadzi. Kluczem jest kat plytki na pierscieniu
-     (--a w znaczniku .cell), nie kolejnosc w kodzie - przestawienie
-     plytek w szablonie niczego tu nie zepsuje. */
-  var STRONY = {
-    "0":   "dobor-sprzetu.html",
-    "60":  "zestawy.html",
-    "120": "liquidy.html",
-    "180": "sole.html",
-    "240": "czesci-akcesoria.html",
-    "300": "kontakt.html"
-  };
-
-  var PROG = 8;            /* px  - powyzej tego ruch to przeciaganie, nie klikniecie */
-  var CZAS_TAPU = 700;     /* ms  - dluzsze przytrzymanie to juz nie klikniecie */
-  var CZAS_OBROTU = 420;   /* ms  - dokrecenie pierscienia po kliknieciu bocznej plytki */
-  var CZAS_KURTYNY = 650;  /* ms  - MUSI byc rowne transition .kurtyna w stylu wyzej */
-  var CZULOSC = 0.32;      /* stopni na piksel przeciagniecia - wartosc z kodu sceny */
-
-  var scena = document.querySelector(".stage");
-  if (!scena) { return; }
-  var pole = scena.querySelector(".field");
-  var pierscien = scena.querySelector(".ring");
-  if (!pole || !pierscien) { return; }
-  var plytki = Array.prototype.slice.call(scena.querySelectorAll(".cell"));
-  if (!plytki.length) { return; }
-
-  var bezRuchu = window.matchMedia &&
-                 window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* --- Powrot z podstrony ------------------------------------------------
-     Znacznik stawiamy w chwili wejscia w kategorie i zdejmujemy przy
-     powrocie. Dzieki temu zaplon pomijamy WYLACZNIE przy cofnieciu:
-     wejscie ze strony 1 gra pelna sekwencje, odswiezenie strony tez.
-
-     sessionStorage zyje tyle, co karta przegladarki - zamkniecie karty
-     kasuje znacznik, wiec nastepna wizyta znowu zaczyna sie od zaplonu.
-
-     Owiniete w try, bo przy pliku otwartym z dysku (file://) przegladarka
-     potrafi odmowic dostepu do magazynu. Wtedy po prostu gra zaplon. */
-  var KLUCZ = "asumpt-wraca-z-kategorii";
-
-  function zapamietajWyjscie() {
-    try { window.sessionStorage.setItem(KLUCZ, "1"); } catch (blad) { /* brak magazynu */ }
-  }
-  function czyPowrot() {
-    try {
-      if (window.sessionStorage.getItem(KLUCZ)) {
-        window.sessionStorage.removeItem(KLUCZ);
-        return true;
-      }
-    } catch (blad) { /* brak magazynu */ }
-    return false;
-  }
-
-  /* --- Dostepnosc -------------------------------------------------------
-     Plytka to div, wiec sama z siebie nie jest ani klikalna klawiatura,
-     ani czytana jako odnosnik. Nazwe bierzemy z jej wlasnego napisu,
-     zeby nie powtarzac tekstu w dwoch miejscach. */
-  plytki.forEach(function (p) {
-    var napis = p.querySelector(".p-name");
-    p.setAttribute("role", "link");
-    p.setAttribute("tabindex", "0");
-    if (napis) { p.setAttribute("aria-label", napis.textContent.trim()); }
-  });
-
-  /* --- Kurtyna ---------------------------------------------------------- */
-  var kurtyna = document.createElement("div");
-  kurtyna.className = "kurtyna";
-  document.body.appendChild(kurtyna);
-
-  /* Wracamy z kategorii - scena ma juz stac zapalona, bez odgrywania
-     zaplonu od nowa. Zdazamy przed scena: ona doklada klase "lit"
-     dopiero po 380 ms, a to jest zwykly styl, nie kolejnosc zdarzen. */
-  if (czyPowrot()) { scena.classList.add("bez-zaplonu"); }
-
-  /* Przycisk "wstecz" potrafi przywrocic strone z pamieci przegladarki
-     bez uruchamiania skryptow - scena jest wtedy dokladnie taka, jaka
-     byla, i nie ma czego pomijac. Trzeba tylko zdjac znacznik, zeby nie
-     zostal na pozniej i nie zjadl zaplonu przy nastepnym prawdziwym
-     wejsciu.
-
-     18.08: samo zdjecie znacznika nie wystarczalo. "Dokladnie taka, jaka
-     byla" znaczy TEZ: z zapalona kurtyna i z wchodzimy=true, bo tak
-     wygladala scena w chwili wyjscia w kategorie. Przy cofnieciu z
-     podstrony wracal wiec czarny ekran zamiast karuzeli, a pod nim
-     martwe plytki - kurtyna lapie klikniecia (pointer-events:auto),
-     a wejdz() i tak odbijalo sie od wchodzimy. Dlatego gasimy kurtyne
-     i odblokowujemy wejscie. */
-  window.addEventListener("pageshow", function (e) {
-    if (!e.persisted) { return; }
-    czyPowrot();
-    kurtyna.classList.remove("gra");
-    wchodzimy = false;
-  });
-
-  var wchodzimy = false;
-  function wejdz(adres) {
-    if (wchodzimy) { return; }
-    wchodzimy = true;
-    zapamietajWyjscie();
-    if (bezRuchu) { window.location.href = adres; return; }
-    kurtyna.classList.add("gra");
-    setTimeout(function () { window.location.href = adres; }, CZAS_KURTYNY);
-  }
-
-  /* --- Katy ------------------------------------------------------------- */
-  function katPlytki(p) { return parseFloat(p.style.getPropertyValue("--a")) || 0; }
-  function katPierscienia() { return parseFloat(pierscien.style.getPropertyValue("--ring")) || 0; }
-
-  /* Plytka stoi z przodu, gdy jej kat wlasny plus kat pierscienia
-     daje zero. Stad ile stopni brakuje: */
-  function ileDoPrzodu(p) { return -(katPlytki(p) + katPierscienia()); }
-
-  /* --- Odegranie przeciagniecia ----------------------------------------- */
-  var obracamy = false;
-  var przerwane = false;
-
-  /* Prawdziwe dotkniecie w trakcie dokrecania przerywa je natychmiast -
-     od tej chwili pierscieniem steruje palec, a nasze dalsze zdarzenia
-     liczylyby sie od nieaktualnego punktu i szarpnelyby scena. */
-  pole.addEventListener("pointerdown", function (e) {
-    if (e.isTrusted && obracamy) { przerwane = true; }
-  }, true);
-
-  function zdarzenie(typ, x, y) {
-    return new PointerEvent(typ, {
-      bubbles: true, cancelable: true, composed: true,
-      clientX: x, clientY: y,
-      pointerId: 1, pointerType: "mouse", isPrimary: true,
-      button: 0, buttons: (typ === "pointerup" ? 0 : 1)
-    });
-  }
-
-  function dokrec(stopnie) {
-    /* Najkrotsza droga: -180 do 180 stopni. */
-    stopnie = ((stopnie + 180) % 360 + 360) % 360 - 180;
-    if (Math.abs(stopnie) < 0.5) { return; }
-
-    var ramka = pole.getBoundingClientRect();
-    var x0 = ramka.left + ramka.width / 2;
-    var y0 = ramka.top + ramka.height / 2;
-    var pikseli = stopnie / CZULOSC;
-
-    /* setPointerCapture odrzuca wskaznik, ktorego naprawde nie ma.
-       Na czas odegrania podmieniamy metode na taka, ktora ten jeden
-       blad przelyka; prawdziwe wskazniki dziala jak dotad. Wlasnosc
-       siedzi na samym elemencie, wiec delete przywraca oryginal. */
-    var oryginalna = pole.setPointerCapture;
-    pole.setPointerCapture = function (id) {
-      try { return oryginalna.call(pole, id); } catch (blad) { /* wskaznik odegrany */ }
-    };
-
-    obracamy = true;
-    przerwane = false;
-    var start = 0;
-
-    pole.dispatchEvent(zdarzenie("pointerdown", x0, y0));
-
-    function koniec() {
-      delete pole.setPointerCapture;
-      obracamy = false;
-    }
-
-    function klatka(teraz) {
-      if (przerwane) { koniec(); return; }
-      if (!start) { start = teraz; }
-      var t = (CZAS_OBROTU > 0 && !bezRuchu)
-                ? Math.min(1, (teraz - start) / CZAS_OBROTU)
-                : 1;
-      var e = 1 - Math.pow(1 - t, 3);   /* wyhamowanie na koncu */
-      pole.dispatchEvent(zdarzenie("pointermove", x0 + pikseli * e, y0));
-      if (t < 1) {
-        requestAnimationFrame(klatka);
-      } else {
-        pole.dispatchEvent(zdarzenie("pointerup", x0 + pikseli, y0));
-        koniec();
-      }
-    }
-    requestAnimationFrame(klatka);
-  }
-
-  /* --- Uruchomienie plytki ---------------------------------------------- */
-  function uruchom(p) {
-    if (wchodzimy || obracamy) { return; }
-    if (p.classList.contains("is-front")) {
-      var adres = STRONY[String(katPlytki(p))];
-      if (adres) { wejdz(adres); }
-      return;
-    }
-    dokrec(ileDoPrzodu(p));
-  }
-
-  /* --- Odroznienie klikniecia od przeciagania ---------------------------- */
-  var startX = 0, startY = 0, startCzas = 0, byRuch = false, dotknieta = null;
-
-  /* Faza przechwytywania, bo scena przejmuje wskaznik (setPointerCapture)
-     i od tej chwili zdarzenia trafiaja w cala scene, nie w plytke.
-     Ktora plytka zostala dotknieta, wiadomo tylko na samym poczatku. */
-  pole.addEventListener("pointerdown", function (e) {
-    if (!e.isTrusted) { return; }
-    startX = e.clientX; startY = e.clientY;
-    startCzas = Date.now();
-    byRuch = false;
-    dotknieta = (e.target && e.target.closest) ? e.target.closest(".cell") : null;
-  }, true);
-
-  pole.addEventListener("pointermove", function (e) {
-    if (!e.isTrusted || !dotknieta) { return; }
-    if (Math.abs(e.clientX - startX) > PROG || Math.abs(e.clientY - startY) > PROG) {
-      byRuch = true;
-    }
-  }, true);
-
-  pole.addEventListener("pointerup", function (e) {
-    if (!e.isTrusted) { return; }
-    var p = dotknieta;
-    dotknieta = null;
-    if (!p || byRuch) { return; }
-    if (Date.now() - startCzas > CZAS_TAPU) { return; }
-
-    /* Odlozone o jedna kolejke zdarzen. Scena konczy przeciaganie
-       dopiero w swojej obsludze pointerup, ktora idzie PO tej.
-       Gdybysmy dokrecali tutaj, jej "koniec przeciagania" wypadlby
-       w srodku naszego odegrania i zatrzymal je na starcie. */
-    setTimeout(function () { uruchom(p); }, 0);
-  }, true);
-
-  pole.addEventListener("pointercancel", function () { dotknieta = null; }, true);
-
-  /* --- Klawiatura -------------------------------------------------------- */
-  plytki.forEach(function (p) {
-    p.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
-        e.preventDefault();
-        uruchom(p);
-      }
-    });
-  });
-})();
 </script>
